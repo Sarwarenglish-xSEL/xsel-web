@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import type { Metadata } from "next";
@@ -100,8 +101,8 @@ export default async function PremiumEnrollPage({ params }: EnrollPageProps) {
   }
 
   return (
-    <main className="min-h-dvh bg-[linear-gradient(180deg,#f7f4ec_0%,#f3efe6_45%,#efe9df_100%)]">
-      <div className="border-b border-white/10 bg-[#152F29]">
+    <main className="relative min-h-dvh overflow-hidden bg-[linear-gradient(180deg,#f7f4ec_0%,#f3efe6_45%,#efe9df_100%)]">
+      <div className="relative z-20 border-b border-white/10 bg-[#152F29]">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-2 pt-[max(3.75rem,calc(env(safe-area-inset-top)+2.5rem))] sm:px-5 sm:py-4 sm:pt-24 md:px-8 md:pt-28">
           <Link
             href={`/premium/${id}`}
@@ -116,14 +117,39 @@ export default async function PremiumEnrollPage({ params }: EnrollPageProps) {
         </div>
       </div>
 
-      <div className="mx-auto max-w-5xl px-4 py-3 sm:px-5 sm:py-8 md:px-8 md:py-12">
-        <PaymentVerification
-          course={paymentCourse}
-          batches={batches}
-          selectedBatchId={selectedBatchId}
-          existingPurchase={existingPurchase}
-          alreadyEnrolled={alreadyEnrolled}
-        />
+      <div className="relative">
+        {/* Enrollment parrot — ambient stage, same language as Reviews / Why / Social */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[92%] max-w-[40rem] translate-x-[10%] sm:w-[62%] sm:max-w-[46rem] sm:translate-x-[12%] lg:w-[52%] lg:max-w-[50rem] lg:translate-x-[14%]"
+          aria-hidden
+        >
+          <div className="absolute inset-0 translate-y-[10%] sm:translate-y-[8%] lg:translate-y-[6%]">
+            <div className="enroll-parrot-float absolute inset-0">
+              <Image
+                src="/enroll-parrot.png"
+                alt=""
+                fill
+                priority
+                unoptimized
+                sizes="(min-width: 1024px) 50vw, 80vw"
+                className="object-contain object-right object-bottom opacity-[0.42] sm:opacity-[0.55] lg:opacity-[0.68]"
+              />
+            </div>
+          </div>
+          <div className="absolute inset-y-0 left-0 w-[38%] bg-gradient-to-r from-[#f7f4ec] via-[#f3efe6]/70 to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-[#f7f4ec]/85 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#efe9df]/90 to-transparent" />
+        </div>
+
+        <div className="relative z-10 mx-auto max-w-5xl px-4 py-3 sm:px-5 sm:py-8 md:px-8 md:py-12">
+          <PaymentVerification
+            course={paymentCourse}
+            batches={batches}
+            selectedBatchId={selectedBatchId}
+            existingPurchase={existingPurchase}
+            alreadyEnrolled={alreadyEnrolled}
+          />
+        </div>
       </div>
     </main>
   );

@@ -323,22 +323,26 @@ export function SocialMedia() {
       <div className="social-stage-glow" aria-hidden />
       <div className="social-stage-grid" aria-hidden />
 
-      {/* Pencil parrot sketch — left to center */}
+      {/* Social parrot mascot — left of “Beyond the Classroom” */}
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-0 w-[78%] max-w-[52rem] sm:w-[68%] lg:w-[58%]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 w-[88%] max-w-[40rem] -translate-x-[8%] sm:w-[62%] sm:max-w-[44rem] sm:-translate-x-[10%] lg:w-[52%] lg:max-w-[46rem] lg:-translate-x-[12%]"
         aria-hidden
       >
-        <Image
-          src="/social-parrot-sketch.jpg"
-          alt=""
-          fill
-          unoptimized
-          sizes="(min-width: 1024px) 50vw, 75vw"
-          className="object-contain object-left opacity-[0.2] mix-blend-multiply [filter:grayscale(0.15)_sepia(0.45)_hue-rotate(78deg)_saturate(0.75)_contrast(1.05)] sm:opacity-[0.24] lg:opacity-[0.28]"
-        />
-        <div className="absolute inset-y-0 right-0 w-[42%] bg-gradient-to-r from-transparent via-[#FFFCF6]/55 to-[#FFFCF6]" />
-        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#FFFCF6]/70 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#FFFCF6]/75 to-transparent" />
+        <div className="absolute inset-0 translate-y-[16%] sm:translate-y-[18%] lg:translate-y-[20%]">
+          <div className="social-parrot-float absolute inset-0">
+            <Image
+              src="/social-parrot.png"
+              alt=""
+              fill
+              unoptimized
+              sizes="(min-width: 1024px) 48vw, 75vw"
+              className="object-contain object-left object-bottom opacity-[0.55] sm:opacity-[0.65] lg:opacity-[0.75]"
+            />
+          </div>
+        </div>
+        <div className="absolute inset-y-0 right-0 w-[38%] bg-gradient-to-r from-transparent via-[#FFFCF6]/55 to-[#FFFCF6]" />
+        <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-[#FFFCF6]/65 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#FFFCF6]/70 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-5 sm:py-20 md:px-8 lg:px-12 lg:py-28">

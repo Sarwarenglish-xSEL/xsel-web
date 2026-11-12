@@ -708,13 +708,13 @@ export function PaymentVerification({
             className="pointer-events-none absolute -bottom-12 left-8 hidden h-28 w-28 rounded-full bg-white/10 blur-2xl sm:block"
             aria-hidden
           />
-          <p className="relative text-[9px] font-semibold tracking-[0.18em] text-[#EFAA93] uppercase sm:text-[11px] sm:tracking-[0.24em]">
+          <p className="relative z-10 text-[9px] font-semibold tracking-[0.18em] text-[#EFAA93] uppercase sm:text-[11px] sm:tracking-[0.24em]">
             Enrollment checkout
           </p>
-          <h2 className="font-display relative mt-1 text-[1.15rem] leading-tight tracking-tight text-white sm:mt-3 sm:text-[2rem]">
+          <h2 className="font-display relative z-10 mt-1 max-w-[16ch] text-[1.15rem] leading-tight tracking-tight text-white sm:mt-3 sm:max-w-[18ch] sm:text-[2rem]">
             {heading}
           </h2>
-          <p className="relative mt-1 hidden max-w-md text-sm leading-6 text-white/65 sm:mt-3 sm:block">
+          <p className="relative z-10 mt-1 hidden max-w-md text-sm leading-6 text-white/65 sm:mt-3 sm:block">
             Secure your seat with a quick payment and receipt upload.
           </p>
         </div>

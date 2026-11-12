@@ -108,7 +108,29 @@ export function Reviews() {
       <div className="pointer-events-none absolute -left-24 top-1/4 hidden h-72 w-72 rounded-full bg-white/5 blur-3xl sm:block" />
       <div className="pointer-events-none absolute -right-16 bottom-0 hidden h-80 w-80 rounded-full bg-[#3d5a52]/40 blur-3xl sm:block" />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-5 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-32">
+      {/* Review parrot mascot — right side */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[90%] max-w-[38rem] translate-x-[8%] sm:w-[58%] sm:max-w-[44rem] sm:translate-x-[10%] lg:w-[50%] lg:max-w-[48rem] lg:translate-x-[12%]"
+        aria-hidden
+      >
+        <div className="absolute inset-0 translate-y-[18%] sm:translate-y-[20%] lg:translate-y-[22%]">
+          <div className="review-parrot-float absolute inset-0">
+            <Image
+              src="/review-parrot.png"
+              alt=""
+              fill
+              unoptimized
+              sizes="(min-width: 1024px) 48vw, 75vw"
+              className="object-contain object-right object-bottom opacity-[0.5] sm:opacity-[0.62] lg:opacity-[0.72]"
+            />
+          </div>
+        </div>
+        <div className="absolute inset-y-0 left-0 w-[36%] bg-gradient-to-l from-transparent via-[#152F29]/45 to-[#152F29]" />
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#152F29]/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#152F29]/75 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-5 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-32">
         {/* —— Mobile layout —— */}
         <div className="sm:hidden">
           <Reveal>

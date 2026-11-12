@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "motion/react";
 import { ArrowIcon } from "./Icons";
@@ -59,317 +59,310 @@ function AccentUnderline({ children }: { children: string }) {
 function HeroVisual({ compact = false }: { compact?: boolean }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28, rotate: 4 }}
-      animate={{ opacity: 1, y: 0, rotate: compact ? 2 : 3 }}
-      transition={{ duration: 0.9, delay: 0.35, ease }}
-      className={`relative mx-auto w-full ${
-        compact ? "max-w-[17.5rem]" : "max-w-[22rem] lg:max-w-[26rem]"
+      initial={{ opacity: 0, y: 28 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.95, delay: 0.28, ease }}
+      className={`relative w-full ${
+        compact ? "mx-auto max-w-[19rem]" : "h-full"
       }`}
     >
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute rounded-full border border-white/10 ${
-          compact
-            ? "-top-8 -right-6 h-28 w-28"
-            : "-top-10 -right-8 h-40 w-40 sm:-top-14 sm:-right-10 sm:h-52 sm:w-52"
-        }`}
-      />
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute rounded-full border border-white/10 ${
-          compact
-            ? "-bottom-10 -left-8 h-32 w-32"
-            : "-bottom-12 -left-10 h-44 w-44 sm:-bottom-16 sm:-left-14 sm:h-56 sm:w-56"
-        }`}
-      />
-
-      <div
-        className={`relative overflow-hidden bg-[#FFFCF6] shadow-[0_28px_60px_-28px_rgba(0,0,0,0.55)] ${
-          compact ? "rounded-[1.25rem] p-4" : "rounded-[1.35rem] p-5 sm:rounded-[1.6rem] sm:p-6"
-        }`}
-      >
-        <div
-          className={`flex items-center justify-between gap-3 font-bold tracking-[0.16em] text-[#152F29]/45 uppercase ${
-            compact ? "text-[9px]" : "text-[10px] sm:text-[11px]"
-          }`}
-        >
-          <span>Sarwar Lab</span>
-          <span>Live class</span>
-        </div>
-
-        <p
-          className={`font-display leading-[1.15] tracking-[-0.04em] text-[#152F29] ${
-            compact ? "mt-4 text-[1.25rem]" : "mt-5 text-[1.45rem] sm:mt-6 sm:text-[1.7rem]"
-          }`}
-        >
-          Grammar.
-          <br />
-          Writing. Speaking.
-        </p>
-
-        <div className={`space-y-2 ${compact ? "mt-4" : "mt-5 sm:mt-6 sm:space-y-2.5"}`}>
-          <div className={`rounded-xl bg-[#152F29]/[0.05] ${compact ? "px-3 py-2.5" : "px-3.5 py-3"}`}>
-            <p className="text-[10px] font-bold tracking-[0.14em] text-[#152F29]/40 uppercase">
-              Rule
-            </p>
-            <p className={`mt-1 leading-snug text-[#152F29]/55 ${compact ? "text-[12px]" : "text-[13px]"}`}>
-              Learn it clearly in class.
-            </p>
-          </div>
-          <div
-            className={`rounded-xl border border-[#EFAA93]/45 bg-[#EFAA93]/15 ${
-              compact ? "px-3 py-2.5" : "px-3.5 py-3"
-            }`}
-          >
-            <p className="text-[10px] font-bold tracking-[0.14em] text-[#B86B52] uppercase">
-              Practice
-            </p>
-            <p className={`mt-1 leading-snug text-[#152F29]/80 ${compact ? "text-[12px]" : "text-[13px]"}`}>
-              Get corrected. Leave more confident.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className={`absolute flex rotate-6 items-center justify-center rounded-full border border-dashed border-[#152F29]/25 bg-[#EFAA93] shadow-[0_16px_30px_-14px_rgba(184,107,82,0.55)] ${
-          compact
-            ? "-top-4 -right-2 h-[4.5rem] w-[4.5rem]"
-            : "-top-5 -right-3 h-[5.5rem] w-[5.5rem] sm:-top-6 sm:-right-4 sm:h-[6.5rem] sm:w-[6.5rem]"
-        }`}
-      >
-        <div className="text-center leading-tight text-[#152F29]">
-          <span className={`mb-0.5 block font-bold ${compact ? "text-[12px]" : "text-[14px]"}`}>*</span>
+      <div className={`relative w-full ${compact ? "aspect-[4/5]" : "h-full"}`}>
+        {/* Mobile-only rings (desktop rings live on the section bg) */}
+        {compact ? (
           <span
-            className={`block font-extrabold tracking-[0.08em] uppercase ${
-              compact ? "text-[8px]" : "text-[9px] sm:text-[10px]"
-            }`}
+            aria-hidden
+            className="pointer-events-none absolute top-[2%] right-[-18%] z-0 h-[13rem] w-[13rem] rounded-full"
+            style={{
+              border: "1px solid rgba(194, 215, 186, 0.45)",
+              boxShadow:
+                "0 0 0 1.1rem rgba(194, 215, 186, 0.26), 0 0 0 2.35rem rgba(194, 215, 186, 0.14)",
+            }}
+          />
+        ) : null}
+
+        {/* Warm glow behind peach semi-circle */}
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute z-0 rounded-full bg-[#EFAA93]/30 blur-3xl ${
+            compact
+              ? "bottom-0 left-[10%] h-[22rem] w-[22rem] translate-y-1/2"
+              : "bottom-0 left-[6%] h-[31.5rem] w-[31.5rem] translate-y-1/2"
+          }`}
+        />
+
+        {/* Peach semi-circle — sits on bottom border */}
+        <motion.div
+          aria-hidden
+          initial={{ scale: 0.92, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.9, delay: 0.2, ease }}
+          className={`absolute bottom-0 z-0 rounded-full bg-[#EFAA93] shadow-[0_18px_36px_-16px_rgba(0,0,0,0.3)] ${
+            compact
+              ? "left-[8%] h-[23.5rem] w-[23.5rem] translate-y-1/2"
+              : "left-[4%] h-[34.5rem] w-[34.5rem] translate-y-1/2 xl:h-[37.5rem] xl:w-[37.5rem]"
+          }`}
+        />
+
+        {/* Parrot — mobile only here; desktop parrot sits in the bg drawing */}
+        {compact ? (
+          <motion.div
+            initial={{ opacity: 0, x: -18, y: 14 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.48, ease }}
+            className="absolute bottom-[2%] left-[-10%] z-[1] h-[70%] w-[58%] -rotate-6"
           >
-            Learn.
-            <br />
-            Practise.
-          </span>
-        </div>
+            <Image
+              src="/hero-parrot.png"
+              alt=""
+              fill
+              unoptimized
+              sizes="170px"
+              className="object-contain object-bottom drop-shadow-[0_18px_30px_rgba(0,0,0,0.38)]"
+            />
+          </motion.div>
+        ) : null}
+
+        {/* Portrait — above the semi-circle */}
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.32, ease }}
+          className={`absolute bottom-0 z-[2] ${
+            compact
+              ? "right-[2%] h-[78%] w-[84%]"
+              : "right-[8%] h-[88%] w-[86%]"
+          }`}
+        >
+          <Image
+            src="/hero-portrait.png"
+            alt="xSEL instructor"
+            fill
+            priority
+            unoptimized
+            sizes={compact ? "250px" : "380px"}
+            className="object-contain object-bottom drop-shadow-[0_24px_44px_rgba(0,0,0,0.42)]"
+          />
+        </motion.div>
       </div>
     </motion.div>
   );
 }
 
-function HeroMobile() {
+function HeroCopy({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col px-4 pb-6 pt-2 lg:hidden">
-      <div className="min-w-0">
-        <motion.p
+    <div className={`min-w-0 ${compact ? "" : "w-full max-w-2xl xl:max-w-[40rem]"}`}>
+      <motion.p
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.05, ease }}
+        className={`inline-flex w-fit max-w-full items-center gap-2 rounded-full border border-[#EFAA93]/35 bg-[#EFAA93]/10 font-semibold tracking-[0.14em] text-[#F5D4C4] uppercase backdrop-blur-[2px] ${
+          compact
+            ? "mb-3 px-3 py-1.5 text-[10px]"
+            : "mb-4 px-3.5 py-1.5 text-[11px]"
+        }`}
+      >
+        <span aria-hidden className="text-[#EFAA93]">
+          *
+        </span>
+        An English lab, not just a class
+      </motion.p>
+
+      <h1 className="text-left text-white">
+        <RevealLine
+          delay={0.12}
+          className={`font-display leading-[1.02] tracking-[-0.065em] ${
+            compact
+              ? "text-[clamp(2.15rem,9vw,2.75rem)]"
+              : "text-[clamp(2.55rem,4.2vw+0.9rem,4.25rem)]"
+          }`}
+        >
+          English,
+        </RevealLine>
+        <RevealLine
+          delay={0.4}
+          className={`font-display leading-[1.02] tracking-[-0.065em] ${
+            compact
+              ? "mt-0.5 text-[clamp(1.85rem,8vw,2.4rem)]"
+              : "mt-1 text-[clamp(2.2rem,3.6vw+0.75rem,3.7rem)]"
+          }`}
+        >
+          taught live &
+        </RevealLine>
+        <RevealLine
+          delay={0.54}
+          className={`em-serif leading-[1.02] text-[#EFAA93] ${
+            compact
+              ? "mt-1 text-[clamp(1.85rem,8vw,2.4rem)]"
+              : "mt-1.5 text-[clamp(2.2rem,3.6vw+0.75rem,3.7rem)]"
+          }`}
+        >
+          <AccentUnderline>Put to work.</AccentUnderline>
+        </RevealLine>
+      </h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.7, ease }}
+        className={`text-left font-normal tracking-[-0.01em] text-white/78 ${
+          compact
+            ? "mt-3 max-w-[36ch] text-[14px] leading-[1.55]"
+            : "mt-5 max-w-xl text-[16px] leading-[1.65] md:text-[1.05rem] md:leading-[1.7]"
+        }`}
+      >
+        A real classroom for grammar, writing and speaking. Learn the rule,
+        practise it, get corrected, and leave every lesson a little more
+        confident.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.84, ease }}
+        className={`flex ${
+          compact
+            ? "mt-4 flex-col items-stretch gap-2.5"
+            : "mt-5 flex-row flex-wrap items-center gap-3.5"
+        }`}
+      >
+        <a
+          href="#free-lessons"
+          className={`inline-flex items-center gap-2 rounded-full bg-[#EFAA93] font-semibold text-[#152F29] shadow-[0_12px_28px_-12px_rgba(239,170,147,0.65)] transition hover:-translate-y-0.5 hover:bg-[#F2BAA1] ${
+            compact
+              ? "min-h-11 justify-center px-6 py-3 text-[15px]"
+              : "min-h-11 justify-start px-6 py-3 text-[15px]"
+          }`}
+        >
+          Browse free lessons
+          <ArrowIcon className="h-4 w-4" />
+        </a>
+        <a
+          href={googlePlayUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`relative inline-flex shrink-0 overflow-hidden rounded-[7px] transition hover:-translate-y-0.5 ${
+            compact
+              ? "mx-auto h-[46px] w-[min(100%,190px)]"
+              : "h-[46px] w-[190px]"
+          }`}
+          aria-label="Get it on Google Play"
+        >
+          <Image
+            src="/google-play-badge.png"
+            alt="Get it on Google Play"
+            width={646}
+            height={250}
+            className="absolute top-1/2 left-1/2 h-[100px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2"
+          />
+        </a>
+      </motion.div>
+    </div>
+  );
+}
+
+function HeroStats({ compact = false }: { compact?: boolean }) {
+  return (
+    <motion.dl
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 1, ease }}
+      className={`border-t border-white/15 text-left ${
+        compact
+          ? "mt-0 grid grid-cols-3 gap-3 pt-4"
+          : "mt-7 grid max-w-xl grid-cols-3 gap-5 pt-5"
+      }`}
+    >
+      {stats.map(([value, label], index) => (
+        <motion.div
+          key={label}
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.05, ease }}
-          className="mb-3 inline-flex w-fit max-w-full items-center gap-2 rounded-full border border-white/25 bg-white/5 px-3 py-1.5 text-[10px] font-semibold tracking-[0.14em] text-white/90 uppercase"
+          transition={{ duration: 0.55, delay: 1.05 + index * 0.1, ease }}
+          className={`flex min-w-0 ${
+            compact ? "flex-col gap-0.5" : "items-center gap-2"
+          }`}
         >
-          <span aria-hidden className="text-[#EFAA93]">
-            *
-          </span>
-          An English lab, not just a class
-        </motion.p>
-
-        <h1 className="text-left text-white">
-          <RevealLine
-            delay={0.12}
-            className="font-display text-[clamp(2.15rem,9vw,2.75rem)] leading-[1.02] tracking-[-0.07em]"
+          <dt
+            className={`font-display tracking-[-0.04em] text-white ${
+              compact ? "text-[1.35rem]" : "shrink-0 text-[1.5rem]"
+            }`}
           >
-            English,
-          </RevealLine>
-          <RevealLine
-            delay={0.42}
-            className="font-display mt-0.5 text-[clamp(1.85rem,8vw,2.4rem)] leading-[1.02] tracking-[-0.07em]"
+            {value}
+          </dt>
+          <dd
+            className={`leading-[1.3] text-white/68 ${
+              compact
+                ? "max-w-[5.5rem] text-[10px]"
+                : "max-w-[5.5rem] text-[11px]"
+            }`}
           >
-            taught live &
-          </RevealLine>
-          <RevealLine
-            delay={0.56}
-            className="em-serif mt-1 text-[clamp(1.85rem,8vw,2.4rem)] leading-[1.02] text-[#EFAA93]"
-          >
-            <AccentUnderline>Put to work.</AccentUnderline>
-          </RevealLine>
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.72, ease }}
-          className="mt-3 max-w-[34ch] text-left text-[14px] font-normal leading-[1.5] tracking-[-0.01em] text-white/75"
-        >
-          A real classroom for grammar, writing and speaking. Learn the rule,
-          practise it, get corrected, and leave every lesson a little more
-          confident.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.86, ease }}
-          className="mt-4 flex flex-col items-stretch gap-2.5"
-        >
-          <a
-            href="#free-lessons"
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#EFAA93] px-6 py-3 text-[15px] font-semibold text-[#152F29] transition hover:-translate-y-0.5 hover:bg-[#F2BAA1]"
-          >
-            Browse free lessons
-            <ArrowIcon className="h-4 w-4" />
-          </a>
-          <a
-            href={googlePlayUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative mx-auto inline-flex h-[46px] w-[min(100%,190px)] shrink-0 overflow-hidden rounded-[7px] transition hover:-translate-y-0.5"
-            aria-label="Get it on Google Play"
-          >
-            <Image
-              src="/google-play-badge.png"
-              alt="Get it on Google Play"
-              width={646}
-              height={250}
-              className="absolute top-1/2 left-1/2 h-[100px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2"
-            />
-          </a>
+            {label}
+          </dd>
         </motion.div>
-      </div>
+      ))}
+    </motion.dl>
+  );
+}
 
-      <div className="flex min-h-0 flex-1 items-center justify-center py-5">
+function HeroMobile() {
+  return (
+    <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col px-4 pb-5 pt-2 lg:hidden">
+      <HeroCopy compact />
+      <div className="relative my-3 flex items-center justify-center py-2">
         <HeroVisual compact />
       </div>
-
-      <motion.dl
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 1, ease }}
-        className="grid grid-cols-3 gap-3 border-t border-white/15 pt-4 text-left"
-      >
-        {stats.map(([value, label], index) => (
-          <motion.div
-            key={label}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 1.05 + index * 0.1, ease }}
-            className="flex min-w-0 flex-col gap-0.5"
-          >
-            <dt className="font-display text-[1.35rem] tracking-[-0.04em] text-white">
-              {value}
-            </dt>
-            <dd className="max-w-[5.5rem] text-[10px] leading-[1.3] text-white/70">
-              {label}
-            </dd>
-          </motion.div>
-        ))}
-      </motion.dl>
+      <HeroStats compact />
     </div>
   );
 }
 
 function HeroDesktop() {
   return (
-    <div className="relative z-10 mx-auto hidden w-full max-w-6xl flex-1 grid-cols-[1.05fr_0.95fr] items-center gap-12 px-8 py-10 md:px-10 lg:grid lg:px-8 lg:py-12 xl:gap-16">
-      <div className="min-w-0">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.05, ease }}
-          className="mb-5 inline-flex w-fit max-w-full items-center gap-2 rounded-full border border-white/25 bg-white/5 px-4 py-2 text-[12px] font-semibold tracking-[0.14em] text-white/90 uppercase"
-        >
-          <span aria-hidden className="text-[#EFAA93]">
-            *
-          </span>
-          An English lab, not just a class
-        </motion.p>
-
-        <h1 className="text-left text-white">
-          <RevealLine
-            delay={0.12}
-            className="font-display text-[clamp(2.4rem,5vw+1rem,4.4rem)] leading-[1.02] tracking-[-0.07em]"
-          >
-            English,
-          </RevealLine>
-          <RevealLine
-            delay={0.42}
-            className="font-display mt-1.5 text-[clamp(2.05rem,4.4vw+0.85rem,3.9rem)] leading-[1.02] tracking-[-0.07em]"
-          >
-            taught live &
-          </RevealLine>
-          <RevealLine
-            delay={0.56}
-            className="em-serif mt-2 text-[clamp(2.05rem,4.4vw+0.85rem,3.9rem)] leading-[1.02] text-[#EFAA93]"
-          >
-            <AccentUnderline>Put to work.</AccentUnderline>
-          </RevealLine>
-        </h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.72, ease }}
-          className="mt-5 max-w-xl text-left text-[17px] font-normal leading-[1.55] tracking-[-0.01em] text-white/75 md:text-[1.125rem] md:leading-[1.6]"
-        >
-          A real classroom for grammar, writing and speaking. Learn the rule,
-          practise it, get corrected, and leave every lesson a little more
-          confident.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.86, ease }}
-          className="mt-6 flex flex-row flex-wrap items-center gap-4"
-        >
-          <a
-            href="#free-lessons"
-            className="inline-flex min-h-12 items-center justify-start gap-2 rounded-full bg-[#EFAA93] px-7 py-3.5 text-base font-semibold text-[#152F29] transition hover:-translate-y-0.5 hover:bg-[#F2BAA1]"
-          >
-            Browse free lessons
-            <ArrowIcon className="h-4 w-4" />
-          </a>
-          <a
-            href={googlePlayUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative inline-flex h-[52px] w-[220px] shrink-0 overflow-hidden rounded-[7px] transition hover:-translate-y-0.5"
-            aria-label="Get it on Google Play"
-          >
-            <Image
-              src="/google-play-badge.png"
-              alt="Get it on Google Play"
-              width={646}
-              height={250}
-              className="absolute top-1/2 left-1/2 h-[114px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2"
-            />
-          </a>
-        </motion.div>
-
-        <motion.dl
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1, ease }}
-          className="mt-8 grid max-w-xl grid-cols-3 gap-6 border-t border-white/15 pt-6 text-left"
-        >
-          {stats.map(([value, label], index) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 1.05 + index * 0.1, ease }}
-              className="flex min-w-0 items-center gap-2.5"
-            >
-              <dt className="font-display shrink-0 text-[1.85rem] tracking-[-0.04em] text-white">
-                {value}
-              </dt>
-              <dd className="max-w-[6.5rem] text-[12px] leading-[1.3] text-white/70">
-                {label}
-              </dd>
-            </motion.div>
-          ))}
-        </motion.dl>
+    <div className="relative z-10 mx-auto hidden w-full max-w-7xl flex-1 items-center px-8 py-8 md:px-10 lg:flex lg:px-8 lg:py-10 xl:px-10">
+      <div className="relative z-10 w-[min(100%,42rem)] pr-6 xl:w-[min(100%,46rem)] xl:pr-8">
+        <HeroCopy />
+        <HeroStats />
       </div>
+    </div>
+  );
+}
 
-      <div className="min-w-0">
-        <HeroVisual />
+function HeroParrotFlight() {
+  const [play, setPlay] = useState(false);
+  const [idle, setIdle] = useState(false);
+
+  useEffect(() => {
+    // Defer one frame so CSS animation always starts on the client
+    const raf = window.requestAnimationFrame(() => setPlay(true));
+    // Safety: never leave the parrot invisible if animation is skipped
+    const fallback = window.setTimeout(() => setIdle(true), 2300);
+    return () => {
+      window.cancelAnimationFrame(raf);
+      window.clearTimeout(fallback);
+    };
+  }, []);
+
+  return (
+    <div className="pointer-events-none absolute top-[2%] -right-[8%] z-[6] hidden h-[28rem] w-[28rem] lg:block xl:top-[0%] xl:-right-[6%] xl:h-[32rem] xl:w-[32rem]">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div
+          className={`relative h-[72%] w-[72%] ${
+            idle ? "hero-parrot-idle" : play ? "hero-parrot-fly" : "hero-parrot-start"
+          }`}
+          onAnimationEnd={(event) => {
+            if (event.animationName === "hero-parrot-swoop") setIdle(true);
+          }}
+        >
+          <Image
+            src="/hero-parrot.png"
+            alt=""
+            fill
+            unoptimized
+            priority
+            sizes="360px"
+            className="object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.38)]"
+          />
+        </div>
       </div>
     </div>
   );
@@ -379,23 +372,46 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-dvh w-full flex-col overflow-hidden bg-[#152F29]"
+      className="relative flex w-full flex-col overflow-hidden bg-[#152F29] min-h-[38rem] sm:min-h-[40rem] lg:min-h-[46rem] lg:h-[min(46rem,86vh)] xl:min-h-[48rem] xl:h-[min(48rem,84vh)]"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-      >
-        <div className="absolute top-[-12%] left-[-8%] h-[28rem] w-[28rem] rounded-full border border-white/[0.07]" />
-        <div className="absolute top-[18%] left-[8%] h-[18rem] w-[18rem] rounded-full border border-white/[0.05]" />
-        <div className="absolute right-[-10%] bottom-[-18%] h-[34rem] w-[34rem] rounded-full border border-white/[0.07]" />
-        <div className="absolute right-[12%] bottom-[8%] h-[16rem] w-[16rem] rounded-full border border-white/[0.05]" />
+      {/* Atmosphere + fixed bg drawing (does not move with SVGs) */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_78%_55%,rgba(239,170,147,0.14),transparent_58%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_12%_40%,rgba(194,215,186,0.08),transparent_55%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/20 to-transparent" />
+
+        {/* Soft left drawing */}
+        <span
+          className="absolute top-[18%] -left-[16%] hidden h-[18rem] w-[18rem] rounded-full opacity-60 lg:block"
+          style={{
+            border: "1px solid rgba(194, 215, 186, 0.18)",
+            boxShadow:
+              "0 0 0 1.5rem rgba(194, 215, 186, 0.1), 0 0 0 3.1rem rgba(194, 215, 186, 0.06)",
+          }}
+        />
+
+        {/* Main right concentric drawing — stays pinned to the section */}
+        <span
+          className="absolute top-[2%] -right-[8%] hidden h-[28rem] w-[28rem] rounded-full lg:block xl:top-[0%] xl:-right-[6%] xl:h-[32rem] xl:w-[32rem]"
+          style={{
+            border: "1px solid rgba(194, 215, 186, 0.45)",
+            boxShadow:
+              "0 0 0 2rem rgba(194, 215, 186, 0.28), 0 0 0 4.25rem rgba(194, 215, 186, 0.15)",
+          }}
+        />
       </div>
 
-      <div
-        className="shrink-0 pt-[env(safe-area-inset-top)]"
-        aria-hidden
-      >
-        <div className="h-14 sm:h-16 lg:h-[4.5rem]" />
+      <HeroParrotFlight />
+
+      {/* Desktop portrait cluster — can shift left without moving the drawing */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-[5] hidden w-[min(46vw,36rem)] translate-x-[calc(-18rem-12%)] lg:block xl:w-[min(44vw,40rem)] xl:translate-x-[calc(-20rem-12%)]">
+        <div className="absolute inset-x-0 bottom-0 top-14">
+          <HeroVisual />
+        </div>
+      </div>
+
+      <div className="shrink-0 pt-[env(safe-area-inset-top)]" aria-hidden>
+        <div className="h-14 sm:h-16 lg:h-[4.25rem]" />
       </div>
 
       <HeroMobile />

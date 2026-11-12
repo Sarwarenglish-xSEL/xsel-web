@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
@@ -8,6 +8,93 @@ import { signInAction, signUpAction } from "@/app/actions/auth";
 import { safeNextPath } from "@/lib/auth-redirect";
 import { AuthMobileBackdrop, AuthSideSlideshow } from "./AuthSideSlideshow";
 import { EyeIcon, EyeOffIcon } from "./Icons";
+
+const GRID_COLS = 14;
+const GRID_ROWS = 10;
+const GRID_CELLS = Array.from({ length: GRID_COLS * GRID_ROWS }, (_, i) => i);
+
+function AuthFormGrid() {
+  const sceneRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+  const [glow, setGlow] = useState({ x: 50, y: 50 });
+  const [hot, setHot] = useState<number | null>(null);
+  const [near, setNear] = useState<Set<number>>(() => new Set());
+
+  function reset() {
+    setActive(false);
+    setHot(null);
+    setNear(new Set());
+    setGlow({ x: 50, y: 50 });
+    const el = sceneRef.current;
+    if (!el) return;
+    el.style.setProperty("--auth-gx", "50%");
+    el.style.setProperty("--auth-gy", "50%");
+    const plane = el.querySelector<HTMLElement>(".auth-grid-plane");
+    if (plane) plane.style.transform = "rotateX(18deg) rotateY(0deg)";
+  }
+
+  function onMove(e: MouseEvent<HTMLDivElement>) {
+    const el = sceneRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const gx = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+    const gy = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+
+    setActive(true);
+    setGlow({ x: gx * 100, y: gy * 100 });
+    el.style.setProperty("--auth-gx", `${gx * 100}%`);
+    el.style.setProperty("--auth-gy", `${gy * 100}%`);
+
+    const plane = el.querySelector<HTMLElement>(".auth-grid-plane");
+    if (plane) {
+      const rotY = (gx - 0.5) * 14;
+      const rotX = 18 + (gy - 0.5) * -10;
+      plane.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    }
+
+    const col = Math.min(GRID_COLS - 1, Math.max(0, Math.floor(gx * GRID_COLS)));
+    const row = Math.min(GRID_ROWS - 1, Math.max(0, Math.floor(gy * GRID_ROWS)));
+    const center = row * GRID_COLS + col;
+    setHot(center);
+
+    const next = new Set<number>();
+    for (let r = row - 1; r <= row + 1; r++) {
+      for (let c = col - 1; c <= col + 1; c++) {
+        if (r < 0 || c < 0 || r >= GRID_ROWS || c >= GRID_COLS) continue;
+        const idx = r * GRID_COLS + c;
+        if (idx !== center) next.add(idx);
+      }
+    }
+    setNear(next);
+  }
+
+  return (
+    <div
+      ref={sceneRef}
+      className={`auth-grid-scene pointer-events-auto absolute inset-0 z-0 ${active ? "is-active" : ""}`}
+      onMouseMove={onMove}
+      onMouseLeave={reset}
+      aria-hidden
+    >
+      <div
+        className="auth-grid-plane"
+        style={{ transform: "rotateX(18deg) rotateY(0deg)" }}
+      />
+      <div className="auth-grid-cells" style={{ transformStyle: "preserve-3d" }}>
+        {GRID_CELLS.map((i) => (
+          <div
+            key={i}
+            className={`auth-grid-cell${i === hot ? " is-hot" : near.has(i) ? " is-near" : ""}`}
+          />
+        ))}
+      </div>
+      <div
+        className="auth-grid-glow"
+        style={{ left: `${glow.x}%`, top: `${glow.y}%` }}
+      />
+    </div>
+  );
+}
 
 type AuthMode = "login" | "signup";
 
@@ -501,33 +588,15 @@ export function LoginPage({
       </div>
 
       {/* —— Desktop —— */}
-      <main className="relative hidden h-dvh max-h-dvh flex-1 items-center justify-center overflow-hidden px-6 py-3 lg:flex xl:px-10">
-        {/* Parrot drawing: anchored right, spans left across the panel */}
-        <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden" aria-hidden>
-          <div className="absolute inset-y-0 right-0 flex w-[min(100%,760px)] items-center justify-end xl:w-[min(100%,860px)]">
-            <Image
-              src="/auth-parrot-drawing.jpg"
-              alt=""
-              width={920}
-              height={1280}
-              priority
-              unoptimized
-              sizes="(min-width: 1280px) 860px, 760px"
-              className="h-[86%] w-auto max-w-none translate-y-[4%] object-contain object-right opacity-[0.96]"
-            />
-          </div>
-          {/* Soft left wash so the form stays readable; parrot stays clear on the right */}
-          <div className="absolute inset-y-0 left-0 w-[42%] bg-gradient-to-r from-[#FFFCF6] via-[#FFFCF6]/90 to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-[#FFFCF6]/50 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#FFFCF6]/40 to-transparent" />
-        </div>
+      <main className="relative hidden h-dvh max-h-dvh flex-1 items-center justify-center overflow-hidden bg-[#FFFCF6] px-6 py-3 lg:flex xl:px-10">
+        <AuthFormGrid />
 
         <div
           className={`relative z-10 mx-auto flex w-full flex-col justify-center ${
             isLogin ? "max-w-[min(100%,400px)]" : "max-w-[min(100%,520px)]"
           }`}
         >
-          <div className="overflow-hidden rounded-[22px] border border-[#e6e6d9] bg-white/96 shadow-[0_20px_50px_-24px_rgba(21,47,41,0.3),0_6px_16px_-10px_rgba(21,47,41,0.1)] backdrop-blur-[1px]">
+          <div className="overflow-hidden rounded-[22px] border border-[#e6e6d9] bg-white/96 shadow-[0_20px_50px_-24px_rgba(21,47,41,0.3),0_6px_16px_-10px_rgba(21,47,41,0.1)] backdrop-blur-[2px]">
             <div className="bg-gradient-to-b from-[#1a3d35] to-[#152F29] px-6 pt-4 pb-3.5 sm:px-7">
               <div className="mx-auto flex h-11 w-11 items-center justify-center overflow-hidden rounded-[11px] bg-white/95 shadow-[0_8px_18px_-10px_rgba(0,0,0,0.45)] ring-1 ring-white/30">
                 <Image

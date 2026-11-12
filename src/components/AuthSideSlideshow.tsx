@@ -1,55 +1,11 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
 import { ArrowIcon } from "./Icons";
 
-const SLIDE_INTERVAL_MS = 3500;
-const ease = [0.22, 1, 0.36, 1] as const;
-
-export const authSlides = [
-  {
-    src: "/auth-slides/lab-1.jpg",
-    alt: "Sarwar English Lab classroom with screen and podium",
-  },
-  {
-    src: "/auth-slides/lab-2.jpg",
-    alt: "Sarwar English Lab seating and teaching setup",
-  },
-  {
-    src: "/auth-slides/lab-3.jpg",
-    alt: "Mahmood Sarwar — English instructor portrait",
-  },
-  {
-    src: "/auth-slides/lab-4.jpg",
-    alt: "Mahmood Sarwar teaching in the classroom",
-  },
-  {
-    src: "/auth-slides/lab-5.jpg",
-    alt: "Mahmood Sarwar at the chalkboard",
-  },
-  {
-    src: "/auth-slides/lab-6.jpg",
-    alt: "Mahmood Sarwar at the studio podium",
-  },
-] as const;
-
-function useAuthSlideIndex() {
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setIndex((current) => (current + 1) % authSlides.length);
-    }, SLIDE_INTERVAL_MS);
-    return () => window.clearInterval(timer);
-  }, []);
-
-  return [index, setIndex] as const;
-}
-
-/** Full-bleed photo stack for mobile auth — desktop keeps the side panel. */
+/** Mobile auth header — parrot stage instead of photo slides. */
 export function AuthMobileBackdrop({
   children,
   compact = false,
@@ -57,38 +13,38 @@ export function AuthMobileBackdrop({
   children?: ReactNode;
   compact?: boolean;
 }) {
-  const [index, setIndex] = useAuthSlideIndex();
-  const active = authSlides[index];
-  const heightClass = compact ? "h-[28dvh] min-h-[10.5rem] max-h-[15rem]" : "min-h-[42dvh]";
+  const heightClass = compact
+    ? "h-[28dvh] min-h-[10.5rem] max-h-[15rem]"
+    : "min-h-[42dvh]";
 
   return (
-    <div className={`relative isolate overflow-hidden lg:hidden ${heightClass}`}>
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={active.src}
-          className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.75, ease }}
-        >
-          <Image
-            src={active.src}
-            alt={active.alt}
-            fill
-            priority={index === 0}
-            unoptimized
-            sizes="100vw"
-            className="object-cover object-center"
-          />
-        </motion.div>
-      </AnimatePresence>
+    <div className={`relative isolate overflow-hidden bg-[#0c1a16] lg:hidden ${heightClass}`}>
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 60% at 55% 45%, rgba(239,170,147,0.18) 0%, transparent 55%), radial-gradient(ellipse 80% 70% at 40% 70%, rgba(45,110,90,0.35) 0%, transparent 60%)",
+        }}
+        aria-hidden
+      />
+
+      <div className="login-parrot-float absolute inset-x-0 bottom-0 top-2">
+        <Image
+          src="/enroll-parrot.png"
+          alt=""
+          fill
+          priority
+          unoptimized
+          sizes="100vw"
+          className="object-contain object-bottom opacity-95"
+        />
+      </div>
 
       <div
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(8,16,14,0.55) 0%, rgba(21,47,41,0.45) 42%, rgba(21,47,41,0.92) 100%)",
+            "linear-gradient(180deg, rgba(8,16,14,0.45) 0%, rgba(21,47,41,0.15) 40%, rgba(21,47,41,0.88) 100%)",
         }}
         aria-hidden
       />
@@ -100,25 +56,6 @@ export function AuthMobileBackdrop({
       >
         <ArrowIcon className="h-3.5 w-3.5 -scale-x-100" />
       </Link>
-
-      <div
-        className={`absolute right-4 z-10 flex items-center gap-1.5 ${
-          compact ? "bottom-8" : "bottom-16"
-        }`}
-      >
-        {authSlides.map((slide, slideIndex) => (
-          <button
-            key={slide.src}
-            type="button"
-            aria-label={`Show slide ${slideIndex + 1}`}
-            aria-current={slideIndex === index ? "true" : undefined}
-            onClick={() => setIndex(slideIndex)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              slideIndex === index ? "w-6 bg-white" : "w-1.5 bg-white/40"
-            }`}
-          />
-        ))}
-      </div>
 
       {children ? (
         <div
@@ -133,34 +70,43 @@ export function AuthMobileBackdrop({
   );
 }
 
+/** Desktop left panel — parrot mascot on a quiet stage. */
 export function AuthSideSlideshow() {
-  const [index, setIndex] = useAuthSlideIndex();
-  const active = authSlides[index];
-
   return (
-    <aside className="relative hidden overflow-hidden bg-[#08101f] lg:flex lg:w-[46%] xl:w-[48%]">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={active.src}
-          className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 1.01 }}
-          transition={{ duration: 0.85, ease }}
-        >
-          <Image
-            src={active.src}
-            alt={active.alt}
-            fill
-            priority={index === 0}
-            unoptimized
-            sizes="48vw"
-            className="object-cover object-center"
-          />
-        </motion.div>
-      </AnimatePresence>
+    <aside className="relative hidden overflow-hidden bg-[#0a1612] lg:flex lg:w-[46%] xl:w-[48%]">
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 65% 55% at 50% 42%, rgba(239,170,147,0.16) 0%, transparent 58%), radial-gradient(ellipse 90% 70% at 48% 78%, rgba(21,47,41,0.9) 0%, transparent 65%), linear-gradient(165deg, #0c1a16 0%, #152F29 48%, #0a1411 100%)",
+        }}
+        aria-hidden
+      />
 
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/20" />
+      {/* Soft stage rings behind the parrot */}
+      <div
+        className="pointer-events-none absolute top-[44%] left-1/2 h-[min(68vw,500px)] w-[min(68vw,500px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#EFAA93]/12"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute top-[44%] left-1/2 h-[min(84vw,620px)] w-[min(84vw,620px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.06]"
+        aria-hidden
+      />
+
+      <div className="login-parrot-float absolute inset-x-[-6%] inset-y-[-2%] xl:inset-x-[-4%] xl:inset-y-[-4%]">
+        <Image
+          src="/enroll-parrot.png"
+          alt="xSEL parrot mascot"
+          fill
+          priority
+          unoptimized
+          sizes="56vw"
+          className="scale-[1.18] object-contain object-center xl:scale-[1.22]"
+        />
+      </div>
+
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] bg-gradient-to-t from-[#0a1411] via-[#0a1411]/55 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/35 to-transparent" />
 
       <Link
         href="/"
@@ -170,21 +116,13 @@ export function AuthSideSlideshow() {
         <ArrowIcon className="h-4 w-4 -scale-x-100" />
       </Link>
 
-      <div className="absolute right-7 bottom-7 z-10 flex items-center gap-2">
-        {authSlides.map((slide, slideIndex) => (
-          <button
-            key={slide.src}
-            type="button"
-            aria-label={`Show slide ${slideIndex + 1}`}
-            aria-current={slideIndex === index ? "true" : undefined}
-            onClick={() => setIndex(slideIndex)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              slideIndex === index
-                ? "w-7 bg-white"
-                : "w-1.5 bg-white/40 hover:bg-white/70"
-            }`}
-          />
-        ))}
+      <div className="absolute right-7 bottom-8 left-7 z-10">
+        <p className="text-[10px] font-semibold tracking-[0.2em] text-[#EFAA93] uppercase">
+          Sarwar English Lab
+        </p>
+        <p className="mt-1.5 max-w-[18rem] text-[15px] leading-snug text-white/85">
+          Learn English with clarity, confidence, and a little personality.
+        </p>
       </div>
     </aside>
   );

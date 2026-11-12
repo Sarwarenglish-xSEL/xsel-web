@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type MouseEvent } from "react";
+import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { whyCards } from "@/data/site";
 import { Stagger, StaggerItem } from "./Reveal";
@@ -214,9 +215,31 @@ function MethodListMobile() {
 export function WhySarwarLab() {
   return (
     <section id="why" className="relative section-anchor overflow-hidden border-b border-ink/8 bg-method-section">
-      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-5 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-32">
+      {/* Why XSEL parrot mascot — left side */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 w-[85%] max-w-[36rem] sm:w-[55%] sm:max-w-[42rem] lg:w-[48%] lg:max-w-[46rem]"
+        aria-hidden
+      >
+        <div className="absolute inset-0 translate-y-[24%] sm:translate-y-[26%] lg:translate-y-[28%]">
+          <div className="why-parrot-float absolute inset-0">
+            <Image
+              src="/why-parrot.png"
+              alt=""
+              fill
+              unoptimized
+              sizes="(min-width: 1024px) 45vw, 70vw"
+              className="object-contain object-left object-bottom opacity-[0.4] sm:opacity-[0.5] lg:opacity-[0.6]"
+            />
+          </div>
+        </div>
+        <div className="absolute inset-y-0 right-0 w-[40%] bg-gradient-to-r from-transparent via-[#FFFCF6]/55 to-[#FFFCF6]" />
+        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#FFFCF6]/70 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#FFFCF6]/75 to-transparent" />
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-5 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-32">
         <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] items-center gap-3 sm:grid-cols-1 sm:items-start sm:gap-10 md:gap-12 lg:grid-cols-[minmax(0,21rem)_minmax(0,1fr)] lg:items-center lg:gap-12 xl:grid-cols-[minmax(0,24rem)_minmax(0,1fr)] xl:gap-16">
-          <div className="method-intro-panel flex min-w-0 self-stretch flex-col justify-center sm:block">
+          <div className="method-intro-panel relative z-10 flex min-w-0 self-stretch flex-col justify-center sm:block">
             <SectionHeader
               className="max-w-none h-full sm:h-auto [&_h2]:text-[clamp(1.75rem,7.5vw,2.25rem)] sm:[&_h2]:text-[clamp(1.75rem,5.5vw,4rem)] [&_p]:mt-4 [&_p]:text-[17px] [&_p]:leading-[1.65] sm:[&_p]:mt-4 sm:[&_p]:text-base sm:[&_p]:leading-[1.75]"
               title="Why xSEL?"
