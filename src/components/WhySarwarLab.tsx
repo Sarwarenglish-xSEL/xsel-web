@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef, type MouseEvent } from "react";
-import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { whyCards } from "@/data/site";
 import { Stagger, StaggerItem } from "./Reveal";
@@ -217,35 +216,31 @@ export function WhySarwarLab() {
     <section id="why" className="relative section-anchor overflow-hidden border-b border-ink/8 bg-method-section">
       {/* Why XSEL parrot — mobile: left bottom, a bit larger */}
       <div
-        className="pointer-events-none absolute -bottom-6 left-[-0.75rem] z-[1] h-[13rem] w-[12rem] sm:hidden"
+        className="pointer-events-none absolute -bottom-8 left-[-2.5rem] z-[1] h-[13rem] w-[12rem] sm:hidden"
         aria-hidden
       >
         <div className="why-parrot-float absolute inset-0">
-          <Image
-            src="/why-parrot.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/Mascot/Why%20xsel.svg"
             alt=""
-            fill
-            unoptimized
-            sizes="192px"
-            className="object-contain object-left object-bottom opacity-[0.72]"
+            className="absolute inset-0 h-full w-full object-contain object-left object-bottom opacity-100"
           />
         </div>
       </div>
 
       {/* Why XSEL parrot — tablet/desktop: left side */}
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[55%] max-w-[42rem] sm:block lg:w-[48%] lg:max-w-[46rem]"
+        className="pointer-events-none absolute inset-y-0 left-[-3rem] z-0 hidden w-[55%] max-w-[42rem] sm:block lg:left-[-4rem] lg:w-[48%] lg:max-w-[46rem]"
         aria-hidden
       >
-        <div className="absolute inset-0 translate-y-[26%] lg:translate-y-[28%]">
+        <div className="absolute inset-0 translate-y-[32%] lg:translate-y-[36%]">
           <div className="why-parrot-float absolute inset-0">
-            <Image
-              src="/why-parrot.png"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Mascot/Why%20xsel.svg"
               alt=""
-              fill
-              unoptimized
-              sizes="(min-width: 1024px) 45vw, 55vw"
-              className="object-contain object-left object-bottom opacity-[0.5] lg:opacity-[0.6]"
+              className="absolute inset-0 h-full w-full object-contain object-left object-bottom opacity-100"
             />
           </div>
         </div>

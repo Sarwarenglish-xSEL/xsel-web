@@ -125,26 +125,23 @@ export function Reviews() {
         </div>
       </div>
 
-      {/* Review parrot — tablet/desktop: right side */}
+      {/* Review parrot — tablet/desktop: center, behind cards */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[58%] max-w-[44rem] translate-x-[10%] sm:block lg:w-[50%] lg:max-w-[48rem] lg:translate-x-[12%]"
+        className="pointer-events-none absolute inset-y-0 left-[36%] z-0 hidden w-[18rem] -translate-x-1/2 sm:block md:w-[21rem] lg:left-[34%] lg:w-[24rem] xl:w-[27rem]"
         aria-hidden
       >
-        <div className="absolute inset-0 translate-y-[20%] lg:translate-y-[22%]">
-          <div className="review-parrot-float absolute inset-0">
+        <div className="absolute inset-0 flex items-center justify-center -translate-y-[8%] lg:-translate-y-[10%]">
+          <div className="review-parrot-float relative h-[62%] w-full max-h-[24rem]">
             <Image
               src="/review-parrot.png"
               alt=""
               fill
               unoptimized
-              sizes="(min-width: 1024px) 48vw, 58vw"
-              className="object-contain object-right object-bottom opacity-[0.62] lg:opacity-[0.72]"
+              sizes="(min-width: 1280px) 27rem, (min-width: 1024px) 24rem, 21rem"
+              className="object-contain object-center opacity-[0.78]"
             />
           </div>
         </div>
-        <div className="absolute inset-y-0 left-0 w-[36%] bg-gradient-to-l from-transparent via-[#152F29]/45 to-[#152F29]" />
-        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-[#152F29]/70 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#152F29]/75 to-transparent" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-5 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-32">
@@ -275,9 +272,9 @@ export function Reviews() {
           </div>
         </div>
 
-        {/* —— Desktop / tablet (unchanged) —— */}
+        {/* —— Desktop / tablet: text left, full-size card right; parrot sits behind —— */}
         <div className="hidden sm:grid sm:items-start sm:gap-10 md:gap-12 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:items-center lg:gap-12 xl:grid-cols-[minmax(0,26rem)_minmax(0,1fr)] xl:gap-16">
-          <Reveal className="reviews-intro-panel min-w-0 text-left">
+          <Reveal className="reviews-intro-panel relative z-10 min-w-0 text-left">
             <h2 className="font-display text-[clamp(1.75rem,7vw,4.875rem)] leading-[1.08] tracking-[-0.055em] text-white sm:leading-[1.03]">
               What{" "}
               <span className="em-serif italic text-[#EFAA93]">learners</span>{" "}
@@ -289,7 +286,7 @@ export function Reviews() {
           </Reveal>
 
           <div
-            className="min-w-0"
+            className="relative z-10 min-w-0"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocusCapture={() => setPaused(true)}

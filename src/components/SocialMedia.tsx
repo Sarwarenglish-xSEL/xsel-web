@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState, type ComponentType } from "react";
 import { createPortal } from "react-dom";
-import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { socials } from "@/data/site";
 import {
@@ -44,9 +43,9 @@ const themes: Record<
   instagram: {
     card: "border border-white/10 bg-[rgba(42,12,29,0.5)] shadow-[0_12px_30px_-16px_rgba(42,12,29,0.4)]",
     badge: "bg-white/12 text-[#F7D6E6]",
-    title: "text-white",
-    handle: "text-white",
-    cta: "text-[#F7B8D4] group-hover:text-white",
+    title: "text-white opacity-100",
+    handle: "text-white opacity-100",
+    cta: "text-[#FFD0E6] opacity-100 group-hover:text-white",
     watermark: "opacity-[0.28]",
     menuHover: "hover:bg-[#fdf2f7]",
     menuIconBg: "bg-[#f7d6e6]",
@@ -55,9 +54,9 @@ const themes: Record<
   facebook: {
     card: "border border-white/10 bg-[rgba(7,31,59,0.5)] shadow-[0_12px_30px_-16px_rgba(7,31,59,0.4)]",
     badge: "bg-white/12 text-[#D6E6FC]",
-    title: "text-white",
-    handle: "text-white",
-    cta: "text-[#A8C8F5] group-hover:text-white",
+    title: "text-white opacity-100",
+    handle: "text-white opacity-100",
+    cta: "text-[#C8DCFF] opacity-100 group-hover:text-white",
     watermark: "opacity-[0.3]",
     menuHover: "hover:bg-[#ebf3fe]",
     menuIconBg: "bg-[#d6e6fc]",
@@ -66,9 +65,9 @@ const themes: Record<
   whatsapp: {
     card: "border border-white/10 bg-[rgba(4,37,28,0.5)] shadow-[0_12px_30px_-16px_rgba(4,37,28,0.4)]",
     badge: "bg-white/12 text-[#C9EFD8]",
-    title: "text-white",
-    handle: "text-white",
-    cta: "text-[#7DDBA8] group-hover:text-white",
+    title: "text-white opacity-100",
+    handle: "text-white opacity-100",
+    cta: "text-[#B6F5D0] opacity-100 group-hover:text-white",
     watermark: "opacity-[0.3]",
     menuHover: "hover:bg-[#e8f8ef]",
     menuIconBg: "bg-[#c9efd8]",
@@ -77,9 +76,9 @@ const themes: Record<
   tiktok: {
     card: "border border-white/10 bg-[rgba(8,8,8,0.5)] shadow-[0_12px_30px_-16px_rgba(0,0,0,0.4)]",
     badge: "bg-white/12 text-[#E5E7EB]",
-    title: "text-white",
-    handle: "text-white",
-    cta: "text-[#25F4EE] group-hover:text-white",
+    title: "text-white opacity-100",
+    handle: "text-white opacity-100",
+    cta: "text-[#25F4EE] opacity-100 group-hover:text-white",
     watermark: "opacity-[0.32]",
     menuHover: "hover:bg-[#f3f4f6]",
     menuIconBg: "bg-[#e5e7eb]",
@@ -88,9 +87,9 @@ const themes: Record<
   youtube: {
     card: "border border-white/10 bg-[rgba(58,9,9,0.5)] shadow-[0_12px_30px_-16px_rgba(58,9,9,0.4)]",
     badge: "bg-white/12 text-[#FCD0D0]",
-    title: "text-white",
-    handle: "text-white",
-    cta: "text-[#FFB4B4] group-hover:text-white",
+    title: "text-white opacity-100",
+    handle: "text-white opacity-100",
+    cta: "text-[#FFC9C9] opacity-100 group-hover:text-white",
     watermark: "opacity-[0.3]",
     menuHover: "hover:bg-[#feecec]",
     menuIconBg: "bg-[#fcd0d0]",
@@ -99,9 +98,9 @@ const themes: Record<
   threads: {
     card: "border border-white/10 bg-[rgba(11,11,11,0.5)] shadow-[0_12px_30px_-16px_rgba(0,0,0,0.4)]",
     badge: "bg-white/12 text-[#E4E4E4]",
-    title: "text-white",
-    handle: "text-white",
-    cta: "text-white group-hover:text-[#EFAA93]",
+    title: "text-white opacity-100",
+    handle: "text-white opacity-100",
+    cta: "text-white opacity-100 group-hover:text-[#EFAA93]",
     watermark: "opacity-[0.34]",
     menuHover: "hover:bg-[#f0f0f0]",
     menuIconBg: "bg-[#e4e4e4]",
@@ -325,35 +324,31 @@ export function SocialMedia() {
 
       {/* Social parrot — mobile: top-right corner */}
       <div
-        className="pointer-events-none absolute top-2 right-[-1rem] z-[1] h-[14.5rem] w-[12.5rem] sm:hidden"
+        className="pointer-events-none absolute top-0 right-[-0.25rem] z-[1] h-[12.5rem] w-[10.75rem] sm:hidden"
         aria-hidden
       >
         <div className="social-parrot-float absolute inset-0">
-          <Image
-            src="/social-parrot.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/Mascot/Social%20media.svg"
             alt=""
-            fill
-            unoptimized
-            sizes="152px"
-            className="object-contain object-right object-top opacity-[0.78]"
+            className="absolute inset-0 h-full w-full object-contain object-right object-top opacity-[0.7]"
           />
         </div>
       </div>
 
       {/* Social parrot — tablet/desktop: kept below the copy so text stays readable */}
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[58%] max-w-[42rem] -translate-x-[14%] sm:block lg:w-[48%] lg:max-w-[44rem] lg:-translate-x-[16%]"
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[48%] max-w-[34rem] -translate-x-[6%] sm:block lg:w-[40%] lg:max-w-[36rem] lg:-translate-x-[8%]"
         aria-hidden
       >
-        <div className="absolute inset-0 translate-y-[34%] lg:translate-y-[30%]">
+        <div className="absolute inset-0 translate-y-[24%] lg:translate-y-[20%] scale-[0.88] origin-left">
           <div className="social-parrot-float absolute inset-0">
-            <Image
-              src="/social-parrot.png"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/Mascot/Social%20media.svg"
               alt=""
-              fill
-              unoptimized
-              sizes="(min-width: 1024px) 44vw, 55vw"
-              className="object-contain object-left object-bottom opacity-[0.38] lg:opacity-[0.48]"
+              className="absolute inset-0 h-full w-full object-contain object-left object-bottom opacity-[0.7]"
             />
           </div>
         </div>
@@ -363,17 +358,17 @@ export function SocialMedia() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-12 sm:px-5 sm:py-20 md:px-8 lg:px-12 lg:py-28">
-        <div className="grid items-center gap-8 sm:gap-10 md:gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] lg:gap-14 xl:gap-16">
-          <div className="relative z-10 min-w-0 max-w-[calc(100%-10.5rem)] rounded-2xl sm:max-w-none sm:bg-[#FFFCF6]/88 sm:p-4 sm:backdrop-blur-[2px] lg:bg-[#FFFCF6]/82 lg:pr-5 lg:pl-4">
+        <div className="grid items-start gap-8 sm:gap-10 md:gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.2fr)] lg:items-start lg:gap-14 xl:gap-16">
+          <div className="relative z-10 min-w-0 max-w-[calc(100%-10.5rem)] -translate-y-2 rounded-2xl sm:max-w-none sm:-translate-y-4 sm:bg-[#FFFCF6]/88 sm:p-4 sm:backdrop-blur-[2px] lg:-translate-y-6 lg:bg-[#FFFCF6]/82 lg:pr-5 lg:pl-4">
             <h2 className="font-display text-[clamp(1.75rem,6.5vw,4.25rem)] leading-[1.08] tracking-[-0.055em] text-heading sm:leading-[1.03]">
               <span className="em-serif italic text-[#EFAA93]">Beyond</span> the
               Classroom
             </h2>
-            <p className="mt-3.5 max-w-md text-[14px] leading-[1.7] text-muted sm:mt-5 sm:text-base sm:leading-[1.75]">
+            <p className="mt-2.5 max-w-md text-[14px] leading-[1.7] text-muted sm:mt-3.5 sm:text-base sm:leading-[1.75]">
               Daily prompts, bite-sized explanations and practical learning tips
               — follow along wherever you already scroll.
             </p>
-            <div className="mt-5 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
+            <div className="mt-4 flex flex-wrap gap-2 sm:mt-6 sm:gap-3">
               <span className="rounded-full border border-[#EFAA93]/50 bg-[#EFAA93] px-3.5 py-1.5 text-xs font-semibold tracking-wide text-[#152F29] shadow-[0_4px_14px_-8px_rgba(184,107,82,0.35)]">
                 {socials.length} platforms
               </span>

@@ -122,25 +122,22 @@ function HeroVisual({ mode }: { mode: "stack" | "aside" }) {
           }`}
         />
 
-        {/* Portrait — sits on the peach arch */}
+        {/* Portrait — sits on the peach arch (SVG framed to match prior PNG crop/zoom) */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.32, ease }}
-          className={`absolute z-[2] ${
+          className={`absolute z-[2] overflow-hidden ${
             stack
               ? "bottom-0 left-1/2 h-[88%] w-[84%] -translate-x-1/2"
               : "right-[6%] bottom-0 h-[90%] w-[84%] xl:right-[8%] xl:w-[82%]"
           }`}
         >
-          <Image
-            src="/hero-portrait.png"
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/Mascot/Pic.svg"
             alt="xSEL instructor"
-            fill
-            priority
-            unoptimized
-            sizes="(max-width: 1023px) 300px, (max-width: 1280px) 360px, 440px"
-            className="object-contain object-bottom drop-shadow-[0_16px_28px_rgba(0,0,0,0.28)]"
+            className="absolute inset-0 h-full w-full origin-bottom translate-y-[16%] scale-[1.58] object-contain object-bottom drop-shadow-[0_16px_28px_rgba(0,0,0,0.28)] sm:translate-y-[18%] sm:scale-[1.54] lg:translate-y-[17%] lg:scale-[1.5]"
           />
         </motion.div>
       </div>
