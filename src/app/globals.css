@@ -57,6 +57,31 @@ svg {
   height: auto;
 }
 
+/* Privacy policy page typography */
+.privacy-policy h2 {
+  margin: 2.25rem 0 0.75rem;
+  font-size: 1.25rem;
+  letter-spacing: -0.03em;
+  color: var(--heading);
+}
+
+.privacy-policy h3 {
+  margin: 1.35rem 0 0.5rem;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  color: #222;
+}
+
+.privacy-policy ul {
+  margin: 0 0 0.9rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+
+.privacy-policy li {
+  margin-bottom: 0.4rem;
+}
+
 /* Anchor offset for fixed navbar (h-16 / lg:h-[4.5rem]) */
 .section-anchor {
   scroll-margin-top: 5.5rem;

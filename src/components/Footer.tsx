@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { features } from "@/config/features";
 import { location, socials } from "@/data/site";
@@ -26,6 +27,7 @@ const exploreLinks = [
   { href: "#reviews", label: "Reviews" },
   ...(features.blogs ? [{ href: "#blogs", label: "Blogs" }] : []),
   { href: "#location", label: "Visit the lab" },
+  { href: "/privacypolicy", label: "Privacy Policy" },
 ];
 
 const socialIcons = {
@@ -182,15 +184,25 @@ export function Footer() {
               Explore
             </p>
             <nav aria-label="Footer" className="flex flex-col gap-2.5 sm:gap-3">
-              {exploreLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm text-white/70 transition hover:text-white"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {exploreLinks.map((link) =>
+                link.href.startsWith("/") ? (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm text-white/70 transition hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    className="text-sm text-white/70 transition hover:text-white"
+                  >
+                    {link.label}
+                  </a>
+                ),
+              )}
             </nav>
           </StaggerItem>
 
