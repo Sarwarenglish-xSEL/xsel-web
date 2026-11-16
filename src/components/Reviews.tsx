@@ -108,20 +108,37 @@ export function Reviews() {
       <div className="pointer-events-none absolute -left-24 top-1/4 hidden h-72 w-72 rounded-full bg-white/5 blur-3xl sm:block" />
       <div className="pointer-events-none absolute -right-16 bottom-0 hidden h-80 w-80 rounded-full bg-[#3d5a52]/40 blur-3xl sm:block" />
 
-      {/* Review parrot mascot — right side */}
+      {/* Review parrot — mobile: top-right corner */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 z-0 w-[90%] max-w-[38rem] translate-x-[8%] sm:w-[58%] sm:max-w-[44rem] sm:translate-x-[10%] lg:w-[50%] lg:max-w-[48rem] lg:translate-x-[12%]"
+        className="pointer-events-none absolute top-1 right-[-1rem] z-[1] h-[11.5rem] w-[11.5rem] sm:hidden"
         aria-hidden
       >
-        <div className="absolute inset-0 translate-y-[18%] sm:translate-y-[20%] lg:translate-y-[22%]">
+        <div className="review-parrot-float absolute inset-0">
+          <Image
+            src="/review-parrot.png"
+            alt=""
+            fill
+            unoptimized
+            sizes="120px"
+            className="object-contain object-right object-top opacity-[0.72]"
+          />
+        </div>
+      </div>
+
+      {/* Review parrot — tablet/desktop: right side */}
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 z-0 hidden w-[58%] max-w-[44rem] translate-x-[10%] sm:block lg:w-[50%] lg:max-w-[48rem] lg:translate-x-[12%]"
+        aria-hidden
+      >
+        <div className="absolute inset-0 translate-y-[20%] lg:translate-y-[22%]">
           <div className="review-parrot-float absolute inset-0">
             <Image
               src="/review-parrot.png"
               alt=""
               fill
               unoptimized
-              sizes="(min-width: 1024px) 48vw, 75vw"
-              className="object-contain object-right object-bottom opacity-[0.5] sm:opacity-[0.62] lg:opacity-[0.72]"
+              sizes="(min-width: 1024px) 48vw, 58vw"
+              className="object-contain object-right object-bottom opacity-[0.62] lg:opacity-[0.72]"
             />
           </div>
         </div>
@@ -134,17 +151,19 @@ export function Reviews() {
         {/* —— Mobile layout —— */}
         <div className="sm:hidden">
           <Reveal>
-            <p className="text-[10px] font-extrabold tracking-[0.18em] text-[#EFAA93] uppercase">
-              Reviews
-            </p>
-            <h2 className="font-display mt-1.5 text-[1.55rem] leading-[1.08] tracking-[-0.055em] text-white">
-              What{" "}
-              <span className="em-serif italic text-[#EFAA93]">learners</span>{" "}
-              say.
-            </h2>
-            <p className="mt-1.5 max-w-[36ch] text-[13px] leading-snug text-white/65">
-              Real notes from people who marked pages, spoke in the lab, and came back the next week.
-            </p>
+            <div className="relative z-[2] max-w-[calc(100%-9.5rem)] pr-1">
+              <p className="text-[10px] font-extrabold tracking-[0.18em] text-[#EFAA93] uppercase">
+                Reviews
+              </p>
+              <h2 className="font-display mt-1.5 text-[1.55rem] leading-[1.08] tracking-[-0.055em] text-white">
+                What{" "}
+                <span className="em-serif italic text-[#EFAA93]">learners</span>{" "}
+                say.
+              </h2>
+              <p className="mt-1.5 text-[13px] leading-snug text-white/65">
+                Real notes from people who marked pages, spoke in the lab, and came back the next week.
+              </p>
+            </div>
           </Reveal>
 
           <div

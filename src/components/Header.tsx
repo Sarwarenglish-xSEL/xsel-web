@@ -90,20 +90,20 @@ export function Header() {
     <header
       className={`fixed top-0 right-0 left-0 z-50 pt-[env(safe-area-inset-top)] transition-all duration-300 ${
         solid
-          ? "border-b border-white/10 bg-[#152F29] shadow-[0_12px_32px_-18px_rgba(21,47,41,0.55)]"
-          : "border-b border-[#152F29]/08 bg-[#FFFCF6]"
+          ? "border-b border-white/10 bg-[#152F29]/96 shadow-[0_12px_32px_-18px_rgba(21,47,41,0.55)] backdrop-blur-md"
+          : "border-b border-[#152F29]/06 bg-[#FFFCF6]/96 backdrop-blur-md"
       }`}
     >
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:h-16 sm:gap-5 sm:px-5 md:gap-6 lg:h-[4.5rem] lg:px-8">
-        <a href="#hero" className="group flex min-w-0 shrink-0 items-center gap-2.5 sm:gap-3">
+      <div className="mx-auto flex h-[3.5rem] max-w-7xl items-center gap-2.5 px-3.5 sm:h-16 sm:gap-5 sm:px-5 md:gap-6 lg:h-[4.5rem] lg:px-8">
+        <a href="#hero" className="group flex min-w-0 flex-1 items-center gap-2 sm:gap-3 sm:flex-none">
           <BrandLogo
             size={40}
             priority
-            className="h-8 w-8 rounded-[10px] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10"
+            className="h-8 w-8 shrink-0 rounded-[9px] transition-transform duration-300 group-hover:scale-[1.03] sm:h-10 sm:w-10 sm:rounded-[10px]"
           />
           <span className="min-w-0 leading-none">
             <span
-              className={`block text-[12px] font-extrabold tracking-[-0.02em] transition-colors sm:text-[14px] ${
+              className={`block truncate text-[13px] font-extrabold tracking-[-0.03em] transition-colors sm:text-[14px] ${
                 solid ? "text-white" : "text-[#152F29]"
               }`}
             >
@@ -119,13 +119,13 @@ export function Header() {
           </span>
         </a>
 
-        <div className="ml-auto flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
-          <nav className="hidden items-center gap-0.5 xl:flex xl:gap-1">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-3 lg:gap-4">
+          <nav className="hidden items-center gap-0.5 lg:flex lg:gap-0.5 xl:gap-1">
             {links.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className={`relative shrink-0 px-2.5 py-2 text-[13.5px] font-bold tracking-[-0.01em] transition-colors after:absolute after:right-2.5 after:bottom-1 after:left-2.5 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 xl:px-3 xl:text-[14px] ${
+                className={`relative shrink-0 px-2 py-2 text-[12.5px] font-bold tracking-[-0.01em] transition-colors after:absolute after:right-2 after:bottom-1 after:left-2 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100 xl:px-3 xl:text-[14px] ${
                   solid
                     ? "text-white/75 hover:text-white"
                     : "text-[#152F29]/70 hover:text-[#152F29]"
@@ -138,7 +138,42 @@ export function Header() {
 
           {!authReady ? (
             <span
-              className={`hidden h-10 w-28 overflow-hidden rounded-[8px] md:inline-flex ${
+              className={`h-8 w-16 overflow-hidden rounded-full sm:hidden ${
+                solid ? "bg-white/15" : "bg-[#152F29]/10"
+              }`}
+              aria-hidden
+            >
+              <span className="shimmer-block h-full w-full rounded-full bg-transparent" />
+            </span>
+          ) : isLoggedIn ? (
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className={`inline-flex h-8 items-center rounded-full px-3 text-[12px] font-bold tracking-tight transition sm:hidden ${
+                solid
+                  ? "border border-white/25 bg-white/10 text-white"
+                  : "border border-[#152F29]/15 bg-white text-[#152F29]"
+              }`}
+            >
+              Log out
+            </button>
+          ) : (
+            <a
+              href="/login"
+              className={`inline-flex h-8 items-center gap-1 rounded-full px-3 text-[12px] font-extrabold tracking-tight transition sm:hidden ${
+                solid
+                  ? "bg-white text-[#152F29]"
+                  : "bg-[#152F29] text-white"
+              }`}
+            >
+              Login
+              <ArrowIcon className="h-3 w-3" />
+            </a>
+          )}
+
+          {!authReady ? (
+            <span
+              className={`hidden h-10 w-28 overflow-hidden rounded-[8px] sm:inline-flex ${
                 solid ? "bg-white/15" : "bg-[#152F29]/10"
               }`}
               aria-hidden
@@ -149,7 +184,7 @@ export function Header() {
             <button
               type="button"
               onClick={handleSignOut}
-              className={`hidden h-9 items-center gap-1.5 rounded-[8px] px-3.5 text-[13px] font-bold tracking-tight transition duration-200 hover:-translate-y-px sm:h-10 sm:px-4 sm:text-[13.5px] md:inline-flex ${
+              className={`hidden h-9 items-center gap-1.5 rounded-[8px] px-3.5 text-[13px] font-bold tracking-tight transition duration-200 hover:-translate-y-px sm:inline-flex sm:h-10 sm:px-4 sm:text-[13.5px] ${
                 solid
                   ? "border border-white/25 bg-white/10 text-white hover:bg-white/18"
                   : "border border-[#152F29]/20 bg-[#152F29]/5 text-[#152F29] hover:bg-[#152F29]/10"
@@ -160,7 +195,7 @@ export function Header() {
           ) : (
             <a
               href="/login"
-              className={`hidden h-9 items-center gap-1.5 rounded-[8px] px-3.5 text-[13px] font-extrabold tracking-tight shadow-[0_8px_18px_-10px_rgba(21,47,41,0.45)] transition duration-200 hover:-translate-y-px sm:h-10 sm:px-4 sm:text-[13.5px] md:inline-flex ${
+              className={`hidden h-9 items-center gap-1.5 rounded-[8px] px-3.5 text-[13px] font-extrabold tracking-tight shadow-[0_8px_18px_-10px_rgba(21,47,41,0.45)] transition duration-200 hover:-translate-y-px sm:inline-flex sm:h-10 sm:px-4 sm:text-[13.5px] ${
                 solid
                   ? "bg-white text-[#152F29] hover:bg-[#F7DFC7]"
                   : "bg-[#152F29] text-white hover:bg-[#1a3d35]"
@@ -173,10 +208,10 @@ export function Header() {
 
           <button
             type="button"
-            className={`inline-flex h-10 w-10 items-center justify-center rounded-[10px] transition-colors sm:h-10 sm:w-10 xl:hidden ${
+            className={`inline-flex h-9 w-9 items-center justify-center rounded-[10px] transition-colors lg:hidden ${
               solid
-                ? "border border-white/25 bg-white/10 text-white"
-                : "border border-[#152F29]/15 bg-[#152F29]/5 text-[#152F29]"
+                ? "border border-white/20 bg-white/10 text-white active:bg-white/16"
+                : "border border-[#152F29]/12 bg-[#152F29]/[0.04] text-[#152F29] active:bg-[#152F29]/8"
             }`}
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
@@ -194,18 +229,18 @@ export function Header() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className={`overflow-hidden xl:hidden ${
+            className={`overflow-hidden lg:hidden ${
               solid
                 ? "border-t border-white/10 bg-[#152F29]"
-                : "border-t border-[#152F29]/10 bg-[#FFFCF6]"
+                : "border-t border-[#152F29]/08 bg-[#FFFCF6]"
             }`}
           >
-            <div className="flex max-h-[min(78dvh,36rem)] flex-col gap-1 overflow-y-auto overscroll-contain px-4 py-3 sm:px-5 sm:py-4">
+            <div className="flex max-h-[min(78dvh,36rem)] flex-col gap-0.5 overflow-y-auto overscroll-contain px-3.5 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-5 sm:py-4">
               {links.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`rounded-xl px-3.5 py-3.5 text-[16px] font-bold transition-colors ${
+                  className={`rounded-xl px-3.5 py-3 text-[15px] font-bold transition-colors ${
                     solid
                       ? "text-white/90 active:bg-white/10 hover:bg-white/10 hover:text-white"
                       : "text-[#152F29]/85 active:bg-[#152F29]/5 hover:bg-[#152F29]/5 hover:text-[#152F29]"
@@ -222,7 +257,7 @@ export function Header() {
                 <button
                   type="button"
                   onClick={handleSignOut}
-                  className={`mt-3 mb-1 min-h-12 rounded-[10px] px-4 py-3.5 text-center text-[15px] font-bold ${
+                  className={`mt-2 mb-1 min-h-11 rounded-full px-4 py-3 text-center text-[14px] font-bold sm:hidden ${
                     solid
                       ? "border border-white/25 bg-white/10 text-white"
                       : "border border-[#152F29]/20 bg-[#152F29]/5 text-[#152F29]"
@@ -233,7 +268,7 @@ export function Header() {
               ) : (
                 <a
                   href="/login"
-                  className={`mt-3 mb-1 inline-flex min-h-12 items-center justify-center gap-1.5 rounded-[10px] px-4 py-3.5 text-center text-[15px] font-extrabold ${
+                  className={`mt-2 mb-1 inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full px-4 py-3 text-center text-[14px] font-extrabold sm:hidden ${
                     solid
                       ? "bg-white text-[#152F29]"
                       : "bg-[#152F29] text-white"

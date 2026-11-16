@@ -215,20 +215,37 @@ function MethodListMobile() {
 export function WhySarwarLab() {
   return (
     <section id="why" className="relative section-anchor overflow-hidden border-b border-ink/8 bg-method-section">
-      {/* Why XSEL parrot mascot — left side */}
+      {/* Why XSEL parrot — mobile: left bottom, a bit larger */}
       <div
-        className="pointer-events-none absolute inset-y-0 left-0 z-0 w-[85%] max-w-[36rem] sm:w-[55%] sm:max-w-[42rem] lg:w-[48%] lg:max-w-[46rem]"
+        className="pointer-events-none absolute -bottom-6 left-[-0.75rem] z-[1] h-[13rem] w-[12rem] sm:hidden"
         aria-hidden
       >
-        <div className="absolute inset-0 translate-y-[24%] sm:translate-y-[26%] lg:translate-y-[28%]">
+        <div className="why-parrot-float absolute inset-0">
+          <Image
+            src="/why-parrot.png"
+            alt=""
+            fill
+            unoptimized
+            sizes="192px"
+            className="object-contain object-left object-bottom opacity-[0.72]"
+          />
+        </div>
+      </div>
+
+      {/* Why XSEL parrot — tablet/desktop: left side */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 z-0 hidden w-[55%] max-w-[42rem] sm:block lg:w-[48%] lg:max-w-[46rem]"
+        aria-hidden
+      >
+        <div className="absolute inset-0 translate-y-[26%] lg:translate-y-[28%]">
           <div className="why-parrot-float absolute inset-0">
             <Image
               src="/why-parrot.png"
               alt=""
               fill
               unoptimized
-              sizes="(min-width: 1024px) 45vw, 70vw"
-              className="object-contain object-left object-bottom opacity-[0.4] sm:opacity-[0.5] lg:opacity-[0.6]"
+              sizes="(min-width: 1024px) 45vw, 55vw"
+              className="object-contain object-left object-bottom opacity-[0.5] lg:opacity-[0.6]"
             />
           </div>
         </div>
