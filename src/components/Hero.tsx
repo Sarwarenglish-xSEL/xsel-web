@@ -71,32 +71,32 @@ function HeroVisual({ mode }: { mode: "stack" | "aside" }) {
       }`}
     >
       <div
-        className={`relative w-full overflow-hidden ${
+        className={`relative w-full ${
           stack
-            ? "aspect-[5/6] rounded-b-[1.25rem]"
-            : "h-full min-h-[min(34rem,72vh)] xl:min-h-[min(38rem,74vh)]"
+            ? "aspect-[5/6] overflow-hidden"
+            : "h-full min-h-[min(34rem,72vh)] overflow-visible xl:min-h-[min(38rem,74vh)]"
         }`}
       >
-        {/* Drawing rings — behind the portrait */}
+        {/* Drawing rings — soft, upper-right only */}
         {stack ? (
           <span
             aria-hidden
-            className="pointer-events-none absolute top-[1%] right-[-8%] z-0 size-[clamp(9.5rem,48%,13.5rem)] rounded-full"
+            className="pointer-events-none absolute top-[0%] right-[-6%] z-0 size-[clamp(8rem,40%,11rem)] rounded-full opacity-55"
             style={{
-              border: "1px solid rgba(194, 215, 186, 0.5)",
+              border: "1px solid rgba(194, 215, 186, 0.28)",
               boxShadow:
-                "0 0 0 0.75rem rgba(194, 215, 186, 0.28), 0 0 0 1.55rem rgba(194, 215, 186, 0.15)",
+                "0 0 0 0.55rem rgba(194, 215, 186, 0.12), 0 0 0 1.15rem rgba(194, 215, 186, 0.06)",
             }}
           />
         ) : null}
 
-        {/* Parrot — inside the rings, still behind the portrait */}
+        {/* Parrot — inside the rings */}
         {stack ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.88, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.48, ease }}
-            className="pointer-events-none absolute top-[6%] right-[-2%] z-[1] size-[clamp(7rem,36%,10rem)] -rotate-[7deg]"
+            className="pointer-events-none absolute top-[5%] right-[1%] z-[1] size-[clamp(6.5rem,34%,9.5rem)] -rotate-[7deg]"
           >
             <Image
               src="/hero-parrot.png"
@@ -104,43 +104,33 @@ function HeroVisual({ mode }: { mode: "stack" | "aside" }) {
               fill
               unoptimized
               sizes="(max-width: 640px) 130px, 160px"
-              className="object-contain drop-shadow-[0_12px_20px_rgba(0,0,0,0.35)]"
+              className="object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,0.28)]"
             />
           </motion.div>
         ) : null}
 
-        {/* Warm glow */}
-        <div
-          aria-hidden
-          className={`pointer-events-none absolute z-0 rounded-full bg-[#EFAA93]/30 blur-3xl ${
-            stack
-              ? "bottom-[-4%] left-[46%] size-[76%] -translate-x-1/2"
-              : "bottom-0 left-[4%] size-[min(100%,34rem)] translate-y-1/2 xl:size-[min(108%,38rem)]"
-          }`}
-        />
-
-        {/* Peach arch — mobile pedestal */}
+        {/* Peach semi-circle pedestal — clear arch behind the portrait */}
         <motion.div
           aria-hidden
           initial={{ scale: 0.92, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease }}
-          className={`absolute z-0 rounded-full bg-[#EFAA93] shadow-[0_18px_36px_-16px_rgba(0,0,0,0.3)] ${
+          className={`absolute z-0 bg-[#EFAA93] ${
             stack
-              ? "bottom-[-36%] left-[46%] size-[88%] -translate-x-1/2"
-              : "bottom-0 left-[2%] size-[min(98%,36rem)] translate-y-1/2 xl:left-[4%] xl:size-[min(104%,40rem)]"
+              ? "bottom-0 left-1/2 h-[48%] w-[92%] -translate-x-1/2 rounded-t-full"
+              : "bottom-0 left-[8%] aspect-square w-[min(86%,30rem)] translate-y-[42%] rounded-full xl:left-[10%] xl:w-[min(88%,34rem)]"
           }`}
         />
 
-        {/* Portrait — centered on the peach arch */}
+        {/* Portrait — sits on the peach arch */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.32, ease }}
           className={`absolute z-[2] ${
             stack
-              ? "bottom-0 left-[46%] h-[90%] w-[90%] -translate-x-1/2"
-              : "right-[4%] bottom-0 h-[90%] w-[88%] xl:right-[6%] xl:w-[86%]"
+              ? "bottom-0 left-1/2 h-[88%] w-[84%] -translate-x-1/2"
+              : "right-[6%] bottom-0 h-[90%] w-[84%] xl:right-[8%] xl:w-[82%]"
           }`}
         >
           <Image
@@ -150,7 +140,7 @@ function HeroVisual({ mode }: { mode: "stack" | "aside" }) {
             priority
             unoptimized
             sizes="(max-width: 1023px) 300px, (max-width: 1280px) 360px, 440px"
-            className="object-contain object-bottom drop-shadow-[0_24px_44px_rgba(0,0,0,0.42)]"
+            className="object-contain object-bottom drop-shadow-[0_16px_28px_rgba(0,0,0,0.28)]"
           />
         </motion.div>
       </div>
@@ -313,25 +303,24 @@ export function Hero() {
     >
       {/* Atmosphere + fixed bg drawing */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_78%_55%,rgba(239,170,147,0.14),transparent_58%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_12%_40%,rgba(194,215,186,0.08),transparent_55%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_12%_40%,rgba(194,215,186,0.06),transparent_55%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/10 to-transparent" />
 
         <span
-          className="absolute top-[18%] -left-[16%] hidden size-[clamp(14rem,22vw,18rem)] rounded-full opacity-60 lg:block"
+          className="absolute top-[18%] -left-[16%] hidden size-[clamp(14rem,22vw,18rem)] rounded-full opacity-40 lg:block"
           style={{
-            border: "1px solid rgba(194, 215, 186, 0.18)",
+            border: "1px solid rgba(194, 215, 186, 0.14)",
             boxShadow:
-              "0 0 0 1.5rem rgba(194, 215, 186, 0.1), 0 0 0 3.1rem rgba(194, 215, 186, 0.06)",
+              "0 0 0 1.5rem rgba(194, 215, 186, 0.06), 0 0 0 3.1rem rgba(194, 215, 186, 0.03)",
           }}
         />
 
         <span
           className="absolute top-[4%] right-[-4%] hidden size-[clamp(16rem,34vw,32rem)] rounded-full lg:block xl:top-[1%] xl:right-[-2%]"
           style={{
-            border: "1px solid rgba(194, 215, 186, 0.45)",
+            border: "1px solid rgba(194, 215, 186, 0.28)",
             boxShadow:
-              "0 0 0 2rem rgba(194, 215, 186, 0.28), 0 0 0 4.25rem rgba(194, 215, 186, 0.15)",
+              "0 0 0 1.5rem rgba(194, 215, 186, 0.12), 0 0 0 3.25rem rgba(194, 215, 186, 0.06)",
           }}
         />
       </div>
@@ -347,12 +336,12 @@ export function Hero() {
         <div className="relative z-10 flex min-w-0 flex-col justify-center lg:pb-10 xl:pb-12">
           <HeroCopy />
 
-          {/* Mobile / tablet visual — contained composition, no clip */}
+          {/* Mobile / tablet visual — peach stays clipped inside the frame */}
           <div className="mt-5 lg:hidden">
-            <div className="relative mx-auto flex w-full items-end justify-center">
+            <div className="relative z-0 mx-auto flex w-full items-end justify-center overflow-hidden">
               <HeroVisual mode="stack" />
             </div>
-            <div className="mt-4">
+            <div className="relative z-10 mt-4 bg-[#152F29]">
               <HeroStats />
             </div>
           </div>
