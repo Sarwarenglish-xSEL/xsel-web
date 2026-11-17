@@ -214,9 +214,9 @@ function MethodListMobile() {
 export function WhySarwarLab() {
   return (
     <section id="why" className="relative section-anchor overflow-hidden border-b border-ink/8 bg-method-section">
-      {/* Why XSEL parrot — mobile: left bottom, a bit larger */}
+      {/* Why XSEL parrot — mobile: left bottom */}
       <div
-        className="pointer-events-none absolute -bottom-8 left-[-2.5rem] z-[1] h-[13rem] w-[12rem] sm:hidden"
+        className="pointer-events-none absolute -bottom-4 left-[-2.5rem] z-[1] h-[13rem] w-[12rem] sm:hidden"
         aria-hidden
       >
         <div className="why-parrot-float absolute inset-0">
@@ -229,12 +229,12 @@ export function WhySarwarLab() {
         </div>
       </div>
 
-      {/* Why XSEL parrot — tablet/desktop: left side */}
+      {/* Why XSEL parrot — tablet/desktop: one position for all widths */}
       <div
-        className="pointer-events-none absolute inset-y-0 left-[-3rem] z-0 hidden w-[55%] max-w-[42rem] sm:block lg:left-[-4rem] lg:w-[48%] lg:max-w-[46rem]"
+        className="pointer-events-none absolute inset-y-0 left-[-3.5rem] z-0 hidden w-[min(52%,44rem)] sm:block"
         aria-hidden
       >
-        <div className="absolute inset-0 translate-y-[32%] lg:translate-y-[36%]">
+        <div className="absolute inset-0 translate-y-[24%]">
           <div className="why-parrot-float absolute inset-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

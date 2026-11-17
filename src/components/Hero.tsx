@@ -56,6 +56,11 @@ function AccentUnderline({ children }: { children: string }) {
   );
 }
 
+/**
+ * One proportional stage: peach + man + parrot + rings.
+ * Every layer is % of this box, so the composition stays identical
+ * from phone → XL — only the stage width changes.
+ */
 function HeroVisual({ mode }: { mode: "stack" | "aside" }) {
   const stack = mode === "stack";
 
@@ -65,79 +70,62 @@ function HeroVisual({ mode }: { mode: "stack" | "aside" }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.95, delay: 0.28, ease }}
       className={`relative w-full ${
-        stack
-          ? "mx-auto max-w-[min(100%,20.5rem)] sm:max-w-[22.5rem]"
-          : "h-full min-h-[22rem]"
+        stack ? "mx-auto max-w-[22rem] sm:max-w-[26rem]" : "max-w-none"
       }`}
     >
-      <div
-        className={`relative w-full ${
-          stack
-            ? "aspect-[5/6] overflow-hidden"
-            : "h-full min-h-[min(34rem,72vh)] overflow-visible xl:min-h-[min(38rem,74vh)]"
-        }`}
-      >
-        {/* Drawing rings — soft, upper-right only */}
-        {stack ? (
-          <span
-            aria-hidden
-            className="pointer-events-none absolute top-[0%] right-[-6%] z-0 size-[clamp(8rem,40%,11rem)] rounded-full opacity-55"
-            style={{
-              border: "1px solid rgba(194, 215, 186, 0.28)",
-              boxShadow:
-                "0 0 0 0.55rem rgba(194, 215, 186, 0.12), 0 0 0 1.15rem rgba(194, 215, 186, 0.06)",
-            }}
-          />
-        ) : null}
+      <div className="hero-visual-stage relative w-full overflow-visible">
+        {/* Rings — upper right; nested so spread scales with the stage */}
+        <span
+          aria-hidden
+          className={`hero-visual-rings pointer-events-none absolute top-[-6%] right-[-18%] z-0 aspect-square w-[72%] ${
+            stack ? "opacity-55" : ""
+          }`}
+        />
 
-        {/* Parrot — inside the rings */}
-        {stack ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.88, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.85, delay: 0.48, ease }}
-            className="pointer-events-none absolute top-[5%] right-[1%] z-[1] size-[clamp(6.5rem,34%,9.5rem)] -rotate-[7deg]"
-          >
-            <Image
-              src="/hero-parrot.png"
-              alt=""
-              fill
-              unoptimized
-              sizes="(max-width: 640px) 130px, 160px"
-              className="object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,0.28)]"
-            />
-          </motion.div>
-        ) : null}
+        {/* Parrot — far right of the man */}
+        <div className="pointer-events-none absolute top-[1%] right-[-10%] z-[3] aspect-square w-[58%]">
+          {stack ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.88, y: 8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.85, delay: 0.48, ease }}
+              className="absolute inset-[4%] -rotate-[7deg]"
+            >
+              <Image
+                src="/hero-parrot.png"
+                alt=""
+                fill
+                unoptimized
+                sizes="(max-width: 640px) 180px, 280px"
+                className="object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,0.28)]"
+              />
+            </motion.div>
+          ) : (
+            <HeroParrotFlight />
+          )}
+        </div>
 
-        {/* Peach semi-circle pedestal — clear arch behind the portrait */}
+        {/* Peach pedestal */}
         <motion.div
           aria-hidden
           initial={{ scale: 0.92, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease }}
-          className={`absolute z-0 bg-[#EFAA93] ${
-            stack
-              ? "bottom-0 left-1/2 h-[48%] w-[92%] -translate-x-1/2 rounded-t-full"
-              : "bottom-0 left-[8%] aspect-square w-[min(86%,30rem)] translate-y-[42%] rounded-full xl:left-[10%] xl:w-[min(88%,34rem)]"
-          }`}
+          className="absolute bottom-0 left-[6%] z-0 aspect-square w-[78%] translate-y-[38%] rounded-full bg-[#EFAA93]"
         />
 
-        {/* Portrait — sits on the peach arch (SVG framed to match prior PNG crop/zoom) */}
+        {/* Portrait — zoomed; overflow visible so the head is never clipped */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.32, ease }}
-          className={`absolute z-[2] overflow-hidden ${
-            stack
-              ? "bottom-0 left-1/2 h-[88%] w-[84%] -translate-x-1/2"
-              : "right-[6%] bottom-0 h-[90%] w-[84%] xl:right-[8%] xl:w-[82%]"
-          }`}
+          className="absolute bottom-0 left-[8%] z-[2] h-[96%] w-[76%] overflow-visible"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/Mascot/Pic.svg"
             alt="xSEL instructor"
-            className="absolute inset-0 h-full w-full origin-bottom translate-y-[16%] scale-[1.58] object-contain object-bottom drop-shadow-[0_16px_28px_rgba(0,0,0,0.28)] sm:translate-y-[18%] sm:scale-[1.54] lg:translate-y-[17%] lg:scale-[1.5]"
+            className="absolute inset-0 h-full w-full origin-bottom translate-y-[34%] scale-[1.78] object-contain object-bottom drop-shadow-[0_16px_28px_rgba(0,0,0,0.28)]"
           />
         </motion.div>
       </div>
@@ -267,26 +255,24 @@ function HeroParrotFlight() {
   }, []);
 
   return (
-    <div className="pointer-events-none absolute top-[4%] right-[-4%] z-[6] hidden size-[clamp(16rem,34vw,32rem)] lg:block xl:top-[1%] xl:right-[-2%]">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div
-          className={`relative h-[72%] w-[72%] ${
-            idle ? "hero-parrot-idle" : play ? "hero-parrot-fly" : "hero-parrot-start"
-          }`}
-          onAnimationEnd={(event) => {
-            if (event.animationName === "hero-parrot-swoop") setIdle(true);
-          }}
-        >
-          <Image
-            src="/hero-parrot.png"
-            alt=""
-            fill
-            unoptimized
-            priority
-            sizes="(max-width: 1280px) 280px, 360px"
-            className="object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.38)]"
-          />
-        </div>
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div
+        className={`relative h-[88%] w-[88%] ${
+          idle ? "hero-parrot-idle" : play ? "hero-parrot-fly" : "hero-parrot-start"
+        }`}
+        onAnimationEnd={(event) => {
+          if (event.animationName === "hero-parrot-swoop") setIdle(true);
+        }}
+      >
+        <Image
+          src="/hero-parrot.png"
+          alt=""
+          fill
+          unoptimized
+          priority
+          sizes="(min-width: 1280px) 280px, 220px"
+          className="object-contain drop-shadow-[0_18px_30px_rgba(0,0,0,0.38)]"
+        />
       </div>
     </div>
   );
@@ -296,46 +282,26 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex w-full flex-col overflow-hidden bg-[#152F29] lg:min-h-[min(86vh,46rem)] xl:min-h-[min(84vh,48rem)]"
+      className="relative flex w-full flex-col overflow-hidden bg-[#152F29] lg:min-h-[min(86vh,48rem)]"
     >
-      {/* Atmosphere + fixed bg drawing */}
+      {/* Atmosphere */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_50%_at_12%_40%,rgba(194,215,186,0.06),transparent_55%)]" />
         <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-black/10 to-transparent" />
-
-        <span
-          className="absolute top-[18%] -left-[16%] hidden size-[clamp(14rem,22vw,18rem)] rounded-full opacity-40 lg:block"
-          style={{
-            border: "1px solid rgba(194, 215, 186, 0.14)",
-            boxShadow:
-              "0 0 0 1.5rem rgba(194, 215, 186, 0.06), 0 0 0 3.1rem rgba(194, 215, 186, 0.03)",
-          }}
-        />
-
-        <span
-          className="absolute top-[4%] right-[-4%] hidden size-[clamp(16rem,34vw,32rem)] rounded-full lg:block xl:top-[1%] xl:right-[-2%]"
-          style={{
-            border: "1px solid rgba(194, 215, 186, 0.28)",
-            boxShadow:
-              "0 0 0 1.5rem rgba(194, 215, 186, 0.12), 0 0 0 3.25rem rgba(194, 215, 186, 0.06)",
-          }}
-        />
+        <span className="hero-visual-rings absolute top-[18%] -left-[16%] hidden w-[min(22vw,18rem)] opacity-40 lg:block" />
       </div>
-
-      <HeroParrotFlight />
 
       <div className="shrink-0 pt-[env(safe-area-inset-top)]" aria-hidden>
         <div className="h-14 sm:h-16 lg:h-[4.25rem]" />
       </div>
 
-      {/* Fluid layout: stack below lg, side-by-side from lg up */}
-      <div className="relative z-10 mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 items-stretch gap-0 px-4 pb-6 pt-2 sm:gap-4 sm:px-6 sm:pb-8 md:px-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(17rem,0.95fr)] lg:items-end lg:gap-6 lg:px-8 lg:pb-0 lg:pt-4 xl:grid-cols-[minmax(0,1fr)_minmax(20rem,1fr)] xl:gap-8 xl:px-10">
-        <div className="relative z-10 flex min-w-0 flex-col justify-center lg:pb-10 xl:pb-12">
+      {/* Fluid: stack below lg, side-by-side from lg — same visual stage either way */}
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl flex-1 grid-cols-1 items-stretch gap-0 px-4 pb-6 pt-2 sm:gap-4 sm:px-6 sm:pb-8 md:px-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-end lg:gap-[clamp(1rem,3vw,2.5rem)] lg:px-10 lg:pb-0 lg:pt-4">
+        <div className="relative z-10 flex min-w-0 flex-col justify-center lg:pb-12">
           <HeroCopy />
 
-          {/* Mobile / tablet visual — peach stays clipped inside the frame */}
           <div className="mt-5 lg:hidden">
-            <div className="relative z-0 mx-auto flex w-full items-end justify-center overflow-hidden">
+            <div className="relative z-0 mx-auto flex w-full items-end justify-center overflow-visible">
               <HeroVisual mode="stack" />
             </div>
             <div className="relative z-10 mt-4 bg-[#152F29]">
@@ -343,13 +309,12 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Desktop stats under copy */}
           <div className="hidden lg:block">
             <HeroStats />
           </div>
         </div>
 
-        <div className="pointer-events-none relative hidden min-h-[min(34rem,72vh)] self-stretch lg:block xl:min-h-[min(38rem,74vh)] xl:px-1">
+        <div className="pointer-events-none relative hidden w-full self-end lg:block lg:pb-0">
           <HeroVisual mode="aside" />
         </div>
       </div>

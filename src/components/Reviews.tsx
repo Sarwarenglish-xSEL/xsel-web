@@ -108,43 +108,40 @@ export function Reviews() {
       <div className="pointer-events-none absolute -left-24 top-1/4 hidden h-72 w-72 rounded-full bg-white/5 blur-3xl sm:block" />
       <div className="pointer-events-none absolute -right-16 bottom-0 hidden h-80 w-80 rounded-full bg-[#3d5a52]/40 blur-3xl sm:block" />
 
-      {/* Review parrot — mobile: top-right corner */}
-      <div
-        className="pointer-events-none absolute top-1 right-[-1rem] z-[1] h-[11.5rem] w-[11.5rem] sm:hidden"
-        aria-hidden
-      >
-        <div className="review-parrot-float absolute inset-0">
-          <Image
-            src="/review-parrot.png"
-            alt=""
-            fill
-            unoptimized
-            sizes="120px"
-            className="object-contain object-right object-top opacity-[0.72]"
-          />
-        </div>
-      </div>
-
-      {/* Review parrot — tablet/desktop: center, behind cards */}
-      <div
-        className="pointer-events-none absolute inset-y-0 left-[36%] z-0 hidden w-[18rem] -translate-x-1/2 sm:block md:w-[21rem] lg:left-[34%] lg:w-[24rem] xl:w-[27rem]"
-        aria-hidden
-      >
-        <div className="absolute inset-0 flex items-center justify-center -translate-y-[8%] lg:-translate-y-[10%]">
-          <div className="review-parrot-float relative h-[62%] w-full max-h-[24rem]">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-5 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-32">
+        {/* Review parrot — anchored to content so placement stays consistent at every width */}
+        <div
+          className="pointer-events-none absolute top-1 right-[-1.25rem] z-[1] h-[11.5rem] w-[11.5rem] sm:hidden"
+          aria-hidden
+        >
+          <div className="review-parrot-float absolute inset-0">
             <Image
               src="/review-parrot.png"
               alt=""
               fill
               unoptimized
-              sizes="(min-width: 1280px) 27rem, (min-width: 1024px) 24rem, 21rem"
+              sizes="120px"
+              className="object-contain object-right object-top opacity-[0.72]"
+            />
+          </div>
+        </div>
+
+        <div
+          className="pointer-events-none absolute top-1/2 left-[36%] z-0 hidden aspect-square w-[clamp(16rem,34%,27rem)] -translate-x-1/2 -translate-y-[58%] sm:block"
+          aria-hidden
+        >
+          <div className="review-parrot-float absolute inset-0">
+            <Image
+              src="/review-parrot.png"
+              alt=""
+              fill
+              unoptimized
+              sizes="(min-width: 1280px) 27rem, 34vw"
               className="object-contain object-center opacity-[0.78]"
             />
           </div>
         </div>
-      </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-5 sm:py-20 md:px-8 md:py-24 lg:px-12 lg:py-32">
         {/* —— Mobile layout —— */}
         <div className="sm:hidden">
           <Reveal>

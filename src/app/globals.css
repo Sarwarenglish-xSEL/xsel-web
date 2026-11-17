@@ -1155,6 +1155,37 @@ p {
   }
 }
 
+/* Hero visual — one aspect stage; layers are % so composition is identical at every width */
+.hero-visual-stage {
+  aspect-ratio: 1 / 1.12;
+}
+
+.hero-visual-rings {
+  aspect-ratio: 1;
+  border: 1px solid rgba(194, 215, 186, 0.28);
+  border-radius: 50%;
+}
+
+.hero-visual-rings::before,
+.hero-visual-rings::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(194, 215, 186, 0.12);
+  pointer-events: none;
+}
+
+.hero-visual-rings::before {
+  inset: -10%;
+  border-color: rgba(194, 215, 186, 0.12);
+}
+
+.hero-visual-rings::after {
+  inset: -22%;
+  border-color: rgba(194, 215, 186, 0.06);
+}
+
 /* Hero parrot — always visible at rest; fly-in is additive */
 .hero-parrot-start,
 .hero-parrot-idle {
@@ -1848,17 +1879,18 @@ p {
   animation: shimmer-sweep 1.2s ease-in-out infinite;
 }
 
+/* Move exactly one segment (1/4 of the track) so the loop never shows a gap */
 @keyframes hero-marquee-scroll {
   from {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-25%);
   }
 }
 
 .hero-marquee__track {
-  animation: hero-marquee-scroll 28s linear infinite;
+  animation: hero-marquee-scroll 32s linear infinite;
   will-change: transform;
 }
 

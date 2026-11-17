@@ -6,6 +6,9 @@ const items = [
   "English for real life",
 ];
 
+/** Enough copies that the strip always covers ultra-wide screens */
+const SEGMENT_COUNT = 4;
+
 function Star() {
   return (
     <span aria-hidden className="mx-4 inline-flex shrink-0 text-[#152F29] sm:mx-6">
@@ -16,11 +19,11 @@ function Star() {
   );
 }
 
-function Track() {
+function Track({ copy }: { copy: number }) {
   return (
-    <span className="flex shrink-0 items-center">
+    <span className="flex shrink-0 items-center" aria-hidden={copy > 0}>
       {items.map((item) => (
-        <span key={item} className="flex items-center">
+        <span key={`${copy}-${item}`} className="flex items-center">
           <span className="whitespace-nowrap text-[12px] font-extrabold tracking-[0.14em] text-[#152F29] uppercase sm:text-[13px] sm:tracking-[0.16em]">
             {item}
           </span>
@@ -38,8 +41,9 @@ export function HeroMarquee() {
       aria-label="Lab highlights"
     >
       <div className="hero-marquee__track flex w-max items-center">
-        <Track />
-        <Track />
+        {Array.from({ length: SEGMENT_COUNT }, (_, i) => (
+          <Track key={i} copy={i} />
+        ))}
       </div>
     </div>
   );
